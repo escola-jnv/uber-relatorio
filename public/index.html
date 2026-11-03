@@ -14,7 +14,7 @@
 @media (prefers-color-scheme:light){:root:not([data-t=d]){--bg:#f4f6f8;--card:#fff;--line:#e3e7ec;--tx:#14181d;--mut:#66707c;--ac:#119a52;--ac2:#1f6fd1;--warn:#b7770a;--bad:#d33}}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding:max(10px,env(safe-area-inset-top)) 12px 90px}
-main{max-width:560px;margin:0 auto}
+main{max-width:860px;margin:0 auto}
 h1{font-size:13px;font-weight:600;color:var(--mut);margin:4px 2px 8px;display:flex;justify-content:space-between}
 .c{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:10px}
 .big{font-size:38px;font-weight:700;letter-spacing:-1px;font-variant-numeric:tabular-nums}
@@ -35,25 +35,100 @@ button.s{background:transparent;border:1px solid var(--line)}
 .chips{display:flex;gap:6px;margin-bottom:8px}.chips button{flex:1;padding:8px;font-size:13px;background:var(--bg)}
 .chips button.on{background:var(--ac2);color:#fff}
 .f2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
-nav{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);display:flex;padding:6px 6px max(6px,env(safe-area-inset-bottom))}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);display:flex;padding:6px 6px max(6px,env(safe-area-inset-bottom));z-index:90}
 nav button{flex:1;background:none;font-size:12px;color:var(--mut);padding:8px 0}
 nav button.on{color:var(--ac)}
 .tab{display:none}.tab.on{display:block}
-.it{display:flex;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line)}
-.it:last-child{border:0}.it .v{margin-left:auto;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
-.it .x{background:none;color:var(--mut);padding:4px 8px}
-.ic{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-size:14px;background:var(--bg);flex:none}
-.dh{display:flex;justify-content:space-between;font-size:12px;color:var(--mut);margin:14px 2px 4px;font-weight:600}
 .tag{font-size:10px;border:1px solid var(--line);border-radius:6px;padding:1px 5px;color:var(--mut);margin-left:4px}
 .ins{padding:10px 0;border-bottom:1px solid var(--line)}.ins:last-child{border:0}
 .ins b{display:block;margin-bottom:2px}
 svg text{fill:var(--mut);font-size:10px}
-.toast{position:fixed;left:50%;bottom:80px;transform:translateX(-50%);background:var(--tx);color:var(--bg);padding:9px 14px;border-radius:10px;font-size:13px;opacity:0;transition:.25s;pointer-events:none;max-width:90%}
+.toast{position:fixed;left:50%;bottom:80px;transform:translateX(-50%);background:var(--tx);color:var(--bg);padding:9px 14px;border-radius:10px;font-size:13px;opacity:0;transition:.25s;pointer-events:none;max-width:90%;z-index:1000}
 .toast.on{opacity:1}
 .sess{display:flex;justify-content:space-between;align-items:center}
 .on-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--ac);margin-right:6px;animation:p 1.6s infinite}
 @keyframes p{50%{opacity:.3}}
 label{font-size:12px;color:var(--mut);display:block;margin:6px 0 3px}
+
+/* Barra e badges de Carros */
+.car-bar{display:flex;justify-content:space-between;align-items:center;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:7px 10px;margin-bottom:8px;font-size:12px}
+.car-bar-left{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.car-badge-btn{display:inline-flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--line);color:var(--tx);padding:4px 9px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer}
+.car-badge-btn:hover{border-color:var(--ac2);color:var(--ac2)}
+.car-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(74,163,255,.12);border:1px solid rgba(74,163,255,.3);color:var(--ac2);font-size:11px;font-weight:600;padding:2px 6px;border-radius:6px;white-space:nowrap}
+.car-plate{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;letter-spacing:.6px}
+.car-card{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.car-card.active{border-color:var(--ac);background:rgba(47,210,122,.04)}
+.car-card-info b{display:block;font-size:14px;margin-bottom:2px}
+.car-actions{display:flex;gap:6px}
+.car-actions button{padding:5px 9px;font-size:11px}
+
+/* Filtro de datas */
+.f-box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:10px}
+.f-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.f-title{font-size:12px;font-weight:600;color:var(--mut);text-transform:uppercase;letter-spacing:.4px}
+.f-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.f-chips button{padding:6px 10px;font-size:12px;background:var(--bg);border:1px solid var(--line);border-radius:8px;flex:1 1 auto;min-width:max-content}
+.f-chips button.on{background:var(--ac2);border-color:var(--ac2);color:#fff}
+.f-dates{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.f-dates label{font-size:11px;color:var(--mut);margin:0 0 3px;display:block}
+.f-dates input[type="date"]{padding:8px 10px;font-size:13px;border-radius:8px;background:var(--bg);color:var(--tx);border:1px solid var(--line);width:100%}
+.f-sum{display:grid;grid-template-columns:repeat(auto-fit,minmax(80px,1fr));gap:6px;padding-top:8px;border-top:1px solid var(--line)}
+.f-sum div{background:var(--bg);border-radius:8px;padding:6px 8px;text-align:center}
+.f-sum span{display:block;font-size:10px;color:var(--mut);text-transform:uppercase;letter-spacing:.3px}
+.f-sum b{display:block;font-size:13px;font-variant-numeric:tabular-nums;margin-top:2px}
+
+/* Tabela de lançamentos */
+.table-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:10px;position:relative}
+.tb{width:100%;border-collapse:collapse;font-size:13px;text-align:left;min-width:760px}
+.tb th{background:var(--card);color:var(--mut);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.4px;padding:9px 10px;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:2;white-space:nowrap}
+.tb td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:middle}
+.tb tbody tr:last-child td{border-bottom:0}
+.tb tbody tr:hover{background:rgba(255,255,255,.02)}
+
+/* Estilos específicos de colunas */
+.tb .col-ic{width:36px;text-align:center;padding:6px 4px}
+.tb .col-h{width:55px;font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--tx);font-weight:500}
+.tb .col-carro{width:105px;white-space:nowrap}
+.tb .col-odo{width:75px;font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--tx)}
+.tb .col-km-tot{width:90px;font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right}
+.tb .col-tempo{width:70px;font-variant-numeric:tabular-nums;white-space:nowrap;text-align:center}
+.tb .col-cat{width:110px;white-space:nowrap;font-weight:500}
+.tb .col-obs{min-width:110px;max-width:220px;color:var(--mut);font-size:12px;line-height:1.3;word-break:break-word}
+.tb .col-v{width:85px;text-align:right;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+.tb .col-lucro{width:95px;text-align:right;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+.tb .col-r-hora{width:75px;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.tb .col-subtot{width:95px;text-align:right;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.tb .col-x{width:28px;text-align:center;padding:4px 4px}
+
+.tb-sep td{background:var(--bg);padding:7px 10px;font-size:11px;color:var(--mut);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.tb-sep .sep-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px}
+.tb-sep b{color:var(--tx)}
+.x-btn{background:none;border:0;color:var(--mut);padding:4px 6px;cursor:pointer;font-size:15px;border-radius:4px;line-height:1}
+.x-btn:hover{color:var(--bad);background:rgba(255,90,95,.1)}
+.val-pos{color:var(--ac)}
+.val-neg{color:var(--bad)}
+.val-warn{color:var(--warn)}
+.ic{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;font-size:13px;background:var(--bg);flex:none;margin:0 auto}
+
+/* Context Menu / Customizador de Colunas */
+.ctx-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:998;backdrop-filter:blur(2px)}
+.ctx-col-menu{position:fixed;z-index:999;background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 12px 36px rgba(0,0,0,.6);width:min(92vw,350px);max-height:85vh;display:flex;flex-direction:column;padding:14px}
+.ctx-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.ctx-header b{font-size:14px}
+.ctx-hint{font-size:11px;color:var(--mut);margin-bottom:10px;line-height:1.3}
+.ctx-cols-grid{overflow-y:auto;display:flex;flex-direction:column;gap:5px;padding-right:4px;margin-bottom:12px;max-height:320px}
+.ctx-col-item{display:flex;align-items:center;gap:8px;padding:7px 10px;background:var(--bg);border-radius:8px;font-size:12px;cursor:pointer;user-select:none;border:1px solid transparent}
+.ctx-col-item:hover{background:var(--line);border-color:var(--line)}
+.ctx-col-item input[type="checkbox"]{width:16px;height:16px;accent-color:var(--ac2);cursor:pointer;margin:0}
+.ctx-footer{display:flex;gap:8px;justify-content:space-between;align-items:center;margin-top:auto;padding-top:8px;border-top:1px solid var(--line)}
+.ctx-footer button{padding:7px 12px;font-size:12px}
+.x-close{background:none;border:0;color:var(--mut);font-size:18px;cursor:pointer;padding:2px 6px;line-height:1}
+
+/* Modal de Carros */
+dialog.modal-car{background:var(--card);color:var(--tx);border:1px solid var(--line);border-radius:14px;padding:16px;max-width:92vw;width:380px;box-shadow:0 12px 40px rgba(0,0,0,.7)}
+dialog.modal-car::backdrop{background:rgba(0,0,0,.6);backdrop-filter:blur(3px)}
+dialog.modal-car h3{margin:0 0 10px;font-size:15px}
 </style>
 </head>
 <body>
@@ -81,13 +156,25 @@ label{font-size:12px;color:var(--mut);display:block;margin:6px 0 3px}
   </section>
 
   <section class="c">
+    <!-- Seletor Rápido do Carro em Uso -->
+    <div class="car-bar">
+      <div class="car-bar-left">
+        <span class="mut">Carro em uso:</span>
+        <button type="button" class="car-badge-btn" id="carActiveBtn" title="Clique para trocar de carro rapidamente">
+          🚗 <b id="carActivePlaca">...</b> <span id="carActiveNome" class="mut"></span> ▾
+        </button>
+      </div>
+      <a href="#" id="btnOpenCarConfig" style="color:var(--ac2);font-size:12px;text-decoration:none">gerenciar carros</a>
+    </div>
+
     <form id="qf" class="row">
       <input id="q" placeholder='25,50 joão 14:30 · odo 45230 · gas 150' autocomplete="off" enterkeyhint="send">
       <button class="p" aria-label="Lançar">＋</button>
     </form>
     <div class="mut" style="margin-top:6px;display:flex;justify-content:space-between">
-      <span>Mesmo formato do WhatsApp</span><a href="#" id="tgF" style="color:var(--ac2)">formulário</a>
+      <span>Mesmo formato do WhatsApp</span><a href="#" id="tgF" style="color:var(--ac2)">formulário detalhado</a>
     </div>
+
     <form id="ff" hidden style="margin-top:10px">
       <div class="chips" id="tipoC">
         <button type="button" data-t="ganho" class="on">Ganho</button>
@@ -97,6 +184,7 @@ label{font-size:12px;color:var(--mut);display:block;margin:6px 0 3px}
       <div class="f2">
         <div><label id="lV">Valor (R$)</label><input id="fV" inputmode="decimal" required></div>
         <div><label>Horário</label><input id="fT" type="time"></div>
+        <div id="wCar"><label>Carro utilizado</label><select id="fCar"></select></div>
         <div id="wP"><label>Passageiro</label><input id="fP" autocomplete="off"></div>
         <div id="wK"><label>Km da corrida</label><input id="fK" inputmode="decimal"></div>
         <div id="wC" hidden><label>Categoria</label><select id="fC">
@@ -108,20 +196,83 @@ label{font-size:12px;color:var(--mut);display:block;margin:6px 0 3px}
     </form>
   </section>
 
-  <div id="t-lista" class="tab on"><div id="lista"></div><button class="s" id="mais" style="width:100%;margin-top:8px" hidden>Ver mais</button></div>
+  <!-- TAB LANÇAMENTOS -->
+  <div id="t-lista" class="tab on">
+    <div class="f-box">
+      <div class="f-top">
+        <span class="f-title">📅 Filtro de Datas</span>
+        <span id="fContador" class="mut" style="font-size:11px"></span>
+      </div>
+      <div class="f-chips" id="fChips">
+        <button type="button" data-f="hoje" class="on">Hoje</button>
+        <button type="button" data-f="ontem">Ontem</button>
+        <button type="button" data-f="semana">Esta semana</button>
+        <button type="button" data-f="7d">Últimos 7 dias</button>
+        <button type="button" data-f="mes">Este mês</button>
+        <button type="button" data-f="30d">Últimos 30 dias</button>
+        <button type="button" data-f="todos">Todos</button>
+        <button type="button" data-f="custom">Personalizado</button>
+      </div>
+      <div class="f-dates" id="fDates">
+        <div>
+          <label for="fIni">De (data inicial)</label>
+          <input type="date" id="fIni">
+        </div>
+        <div>
+          <label for="fFim">Até (data final)</label>
+          <input type="date" id="fFim">
+        </div>
+      </div>
+      <div class="f-sum" id="fSum">
+        <div><span>Ganhos</span><b id="fSumG" class="val-pos">R$ 0,00</b></div>
+        <div><span>Despesas</span><b id="fSumD" class="val-neg">R$ 0,00</b></div>
+        <div><span>Líquido</span><b id="fSumL">R$ 0,00</b></div>
+        <div><span>Corridas</span><b id="fSumN">0</b></div>
+        <div><span>Km</span><b id="fSumK">—</b></div>
+      </div>
+    </div>
+
+    <!-- Barra de Ferramentas da Tabela -->
+    <div style="display:flex;justify-content:space-between;align-items:center;margin:6px 2px 8px">
+      <span class="mut" style="font-size:11px">💡 Dica: clique com botão direito na tabela para escolher as colunas</span>
+      <button type="button" class="s" id="btnEditCols" style="padding:5px 10px;font-size:11px;display:inline-flex;align-items:center;gap:4px">
+        ⚙️ Personalizar Colunas
+      </button>
+    </div>
+
+    <div id="lista"></div>
+    <button class="s" id="mais" style="width:100%;margin-top:8px" hidden>Ver mais</button>
+  </div>
+
   <div id="t-graf" class="tab"></div>
   <div id="t-ins" class="tab"></div>
+
+  <!-- TAB CONFIGURAÇÃO: CARROS & METAS -->
   <div id="t-cfg" class="tab">
+    <!-- Seção de Carros -->
+    <section class="c" id="sec-carros">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <b>🚗 Meus Carros & Placas</b>
+        <button type="button" class="p" id="btnAddCar" style="padding:6px 12px;font-size:12px">＋ Novo Carro</button>
+      </div>
+      <div class="mut" style="font-size:12px;margin-bottom:12px">
+        Cadastre seus veículos e placas. O carro ativo é associado automaticamente aos novos lançamentos e usado no cálculo de custo/km e lucro estimado.
+      </div>
+      <div id="listaCarros"></div>
+    </section>
+
+    <!-- Metas financeiras -->
     <form class="c" id="cf">
-      <div class="f2">
+      <b>🎯 Metas Financeiras & Jornada</b>
+      <div class="f2" style="margin-top:10px">
         <div><label>Meta do dia (R$)</label><input name="meta_dia" inputmode="decimal"></div>
         <div><label>Meta da semana (R$)</label><input name="meta_semana" inputmode="decimal"></div>
         <div><label>Meta por sessão (R$)</label><input name="meta_sessao" inputmode="decimal"></div>
         <div><label>Horas por dia</label><input name="horas_dia" inputmode="decimal"></div>
         <div><label>Dias por semana</label><input name="dias_semana" inputmode="numeric"></div>
-        <div><label>Custo por km (R$)</label><input name="custo_km" inputmode="decimal"></div>
+        <div><label>Custo padrão por km (R$)</label><input name="custo_km" inputmode="decimal"></div>
       </div>
-      <div class="mut" style="margin-bottom:8px">Custo/km = combustível + manutenção + desgaste. Ex.: carro 10 km/L, gasolina R$ 6 → R$ 0,60 só de combustível.</div>
+      <div class="mut" style="margin-bottom:8px">Usado quando o carro não possuir um custo por km específico configurado.</div>
       <button class="p" style="width:100%">Salvar metas</button>
     </form>
     <div class="c mut" id="ajuda"></div>
@@ -132,9 +283,72 @@ label{font-size:12px;color:var(--mut);display:block;margin:6px 0 3px}
   <button data-tab="lista" class="on">Lançamentos</button>
   <button data-tab="graf">Gráficos</button>
   <button data-tab="ins">Insights</button>
-  <button data-tab="cfg">Metas</button>
+  <button data-tab="cfg">Carros & Metas</button>
 </nav>
+
 <div class="toast" id="toast"></div>
+
+<!-- Modal para Cadastrar / Editar Carro -->
+<dialog id="dlgCar" class="modal-car">
+  <form id="fCarModal" method="dialog">
+    <h3 id="dlgCarTitle">Cadastrar Carro</h3>
+    <input type="hidden" id="carId">
+    <div>
+      <label>Nome / Modelo do veículo</label>
+      <input id="carNome" placeholder="Ex: Chevrolet Onix 1.0, HB20, Polo" required>
+    </div>
+    <div style="margin-top:8px">
+      <label>Placa do veículo</label>
+      <input id="carPlaca" placeholder="Ex: BRA-2E19 ou ABC-1234" required style="text-transform:uppercase">
+    </div>
+    <div style="margin-top:8px">
+      <label>Custo estimado por km (R$/km)</label>
+      <input id="carCustoKm" inputmode="decimal" placeholder="Ex: 0,48">
+      <span class="mut" style="font-size:11px">Combustível + pneus + manutenção preventiva para este veículo.</span>
+    </div>
+    <div style="margin-top:12px;display:flex;align-items:center;gap:8px">
+      <input type="checkbox" id="carAtivo" style="width:auto">
+      <label for="carAtivo" style="margin:0;cursor:pointer">Definir como carro ativo agora</label>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:16px;justify-content:flex-end">
+      <button type="button" class="s" id="btnCancelCar">Cancelar</button>
+      <button type="submit" class="p">Salvar Carro</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- Modal de Troca Rápida de Carro -->
+<dialog id="dlgCarSelect" class="modal-car">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+    <b>🚗 Selecionar Carro em Uso</b>
+    <button type="button" class="x-close" id="btnCloseCarSelect">×</button>
+  </div>
+  <div class="mut" style="font-size:12px;margin-bottom:12px">
+    Escolha o carro que você está dirigindo. Os novos lançamentos serão gravados com ele.
+  </div>
+  <div id="quickCarList" style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px"></div>
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <button type="button" class="s" id="btnQuickAddCar" style="font-size:12px">＋ Novo Carro</button>
+    <button type="button" class="s" id="btnQuickClose" style="font-size:12px">Fechar</button>
+  </div>
+</dialog>
+
+<!-- Context Menu / Customizador de Colunas da Tabela -->
+<div id="colBackdrop" class="ctx-backdrop" hidden></div>
+<div id="colMenu" class="ctx-col-menu" hidden>
+  <div class="ctx-header">
+    <b>⚙️ Personalizar Colunas</b>
+    <button type="button" class="x-close" id="btnCloseColMenu">×</button>
+  </div>
+  <div class="ctx-hint">
+    Marque as colunas que você deseja ver na tabela. Clique com botão direito na tabela a qualquer momento para abrir este menu.
+  </div>
+  <div class="ctx-cols-grid" id="ctxColsGrid"></div>
+  <div class="ctx-footer">
+    <button type="button" class="s" id="btnResetCols">Restaurar Padrão</button>
+    <button type="button" class="p" id="btnSaveCols">Concluir</button>
+  </div>
+</div>
 
 <script>
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
@@ -146,25 +360,210 @@ const dk=d=>{d=new Date(d);return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pa
 const hm=d=>{d=new Date(d);return pad(d.getHours())+':'+pad(d.getMinutes())};
 const DS=['dom','seg','ter','qua','qui','sex','sáb'];
 const weekStart=d=>{d=new Date(d);d.setHours(0,0,0,0);d.setDate(d.getDate()-((d.getDay()+6)%7));return d};
-const DEF={meta_dia:300,meta_semana:1800,meta_sessao:150,horas_dia:8,dias_semana:6,custo_km:.45};
-let rows=JSON.parse(localStorage.rows||'[]'), cfg={...DEF,...JSON.parse(localStorage.cfg||'{}')}, M={}, shown=60;
+
+// Definições padrão da aplicação
+const DEF={
+  meta_dia:300,meta_semana:1800,meta_sessao:150,horas_dia:8,dias_semana:6,custo_km:.45,
+  carros:[
+    { id:'c1', nome:'Carro Principal', placa:'PAD-1234', custo_km:.45, ativo:true }
+  ],
+  carro_ativo_id:'c1'
+};
+
+let rows=JSON.parse(localStorage.rows||'[]'), cfg={...DEF,...JSON.parse(localStorage.cfg||'{}')}, M={}, shown=100;
+let filtroData=localStorage.filtroData||'hoje', filtroDe=localStorage.filtroDe||'', filtroAte=localStorage.filtroAte||'';
+
+// Lista completa de colunas suportadas na tabela
+const ALL_COLUMNS=[
+  { id:'col-ic', label:'Ícone', def:true },
+  { id:'col-h', label:'Horário', def:true },
+  { id:'col-carro', label:'Carro / Placa', def:true },
+  { id:'col-odo', label:'Odômetro', def:true },
+  { id:'col-km-tot', label:'Km rodado (vazio+pass.)', def:true },
+  { id:'col-tempo', label:'Tempo rodado', def:true },
+  { id:'col-cat', label:'Categoria', def:true },
+  { id:'col-obs', label:'Obs / Passageiro', def:true },
+  { id:'col-v', label:'Valor Bruto', def:true },
+  { id:'col-lucro', label:'Lucro Estimado', def:true },
+  { id:'col-r-hora', label:'R$/hora', def:true },
+  { id:'col-subtot', label:'Subtotal Dia', def:true },
+  { id:'col-x', label:'Ações', def:true }
+];
+
+function getVisibleCols(){
+  if(localStorage.colunasVisiveis){
+    try{
+      const arr=JSON.parse(localStorage.colunasVisiveis);
+      if(Array.isArray(arr)&&arr.length) return new Set(arr);
+    }catch{}
+  }
+  return new Set(ALL_COLUMNS.filter(c=>c.def).map(c=>c.id));
+}
 
 function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('on'),2200)}
+
 async function api(path,opt={}){
   const r=await fetch('/api/'+path,{...opt,headers:{'Content-Type':'application/json','x-token':localStorage.tk||''}});
   if(r.status===401){const t=prompt('Código de acesso da app:');if(t){localStorage.tk=t;return api(path,opt)}throw Error('sem acesso')}
   const j=await r.json(); if(!r.ok) throw Error(j.error||r.status); return j;
 }
+
 async function load(){
   try{
-    const [r,c]=await Promise.all([api('entries?days=90'),api('config')]);
-    rows=r; cfg={...DEF,...c}; localStorage.rows=JSON.stringify(r); localStorage.cfg=JSON.stringify(cfg);
+    const [r,c]=await Promise.all([api('entries?days=365'),api('config')]);
+    rows=r; cfg={...DEF,...c};
+    if(!cfg.carros||!cfg.carros.length) cfg.carros=DEF.carros;
+    localStorage.rows=JSON.stringify(r); localStorage.cfg=JSON.stringify(cfg);
     $('#sync').textContent='atualizado '+hm(new Date());
   }catch(e){$('#sync').textContent='offline'}
   render();
 }
 
-/* ---------- cálculos ---------- */
+/* ---------- Gestão de Carros ---------- */
+function getCarros(){
+  if(!Array.isArray(cfg.carros)||!cfg.carros.length){
+    cfg.carros=[{ id:'c1', nome:'Carro Principal', placa:'PAD-1234', custo_km:cfg.custo_km||.45, ativo:true }];
+  }
+  return cfg.carros;
+}
+
+function getActiveCar(){
+  const list=getCarros();
+  return list.find(c=>c.id===cfg.carro_ativo_id||c.ativo)||list[0];
+}
+
+function findCar(identifier){
+  if(!identifier) return null;
+  const list=getCarros();
+  const clean=String(identifier).toLowerCase().replace(/[^a-z0-9]/g,'');
+  return list.find(c=>{
+    const p=String(c.placa||'').toLowerCase().replace(/[^a-z0-9]/g,'');
+    const n=String(c.nome||'').toLowerCase().replace(/[^a-z0-9]/g,'');
+    return p===clean||n.includes(clean)||clean.includes(p);
+  })||{ nome:identifier, placa:identifier, custo_km:cfg.custo_km||.45 };
+}
+
+function getRowCar(r){
+  if(r.carro) return r.carro;
+  if(r.obs){
+    const m=r.obs.match(/\[(?:🚗|carro:)\s*([^\]]+)\]/i);
+    if(m) return m[1].trim();
+  }
+  return null;
+}
+
+function getRowObs(r){
+  if(!r.obs) return '';
+  return r.obs.replace(/\[(?:🚗|carro:)\s*[^\]]+\]\s*/gi,'').trim();
+}
+
+async function setActiveCar(id){
+  const list=getCarros();
+  for(const c of list) c.ativo=(c.id===id);
+  cfg.carro_ativo_id=id;
+  const active=getActiveCar();
+  if(active&&active.custo_km) cfg.custo_km=+active.custo_km;
+  await salvarCfg();
+  render();
+  toast(`Carro ativo: ${active?.nome||''} (${active?.placa||''})`);
+}
+
+async function salvarCfg(){
+  localStorage.cfg=JSON.stringify(cfg);
+  try{
+    const res=await api('config',{method:'POST',body:JSON.stringify(cfg)});
+    cfg={...DEF,...res};
+    if(!cfg.carros||!cfg.carros.length) cfg.carros=DEF.carros;
+    localStorage.cfg=JSON.stringify(cfg);
+  }catch(err){console.error('Erro ao sincronizar config:',err)}
+}
+
+function renderCarBar(){
+  const active=getActiveCar();
+  if(!active) return;
+  if($('#carActivePlaca')) $('#carActivePlaca').textContent=active.placa||'Sem placa';
+  if($('#carActiveNome')) $('#carActiveNome').textContent=`(${active.nome||'Carro'}) · R$ ${N1(active.custo_km||cfg.custo_km)}/km`;
+
+  if($('#fCar')){
+    $('#fCar').innerHTML=getCarros().map(c=>
+      `<option value="${esc(c.placa||c.nome)}" ${c.id===active.id?'selected':''}>${esc(c.nome)} (${esc(c.placa)}) - R$ ${N1(c.custo_km)}/km</option>`
+    ).join('');
+  }
+}
+
+function renderCarList(){
+  const list=getCarros(), active=getActiveCar(), cont=$('#listaCarros');
+  if(!cont) return;
+  cont.innerHTML=list.map(c=>{
+    const isAct=c.id===active?.id;
+    return `<div class="car-card ${isAct?'active':''}">
+      <div class="car-card-info">
+        <div style="display:flex;align-items:center;gap:6px">
+          <span class="car-badge"><span class="car-plate">${esc(c.placa||'SEM PLACA')}</span></span>
+          <b>${esc(c.nome)}</b>
+          ${isAct?'<span class="tag" style="background:var(--ac);color:#04140b;font-weight:700">ATIVO</span>':''}
+        </div>
+        <div class="mut" style="font-size:12px;margin-top:3px">
+          Custo por km: <b>${R(c.custo_km||cfg.custo_km)}/km</b>
+        </div>
+      </div>
+      <div class="car-actions">
+        ${!isAct?`<button type="button" class="s" onclick="setActiveCar('${c.id}')" title="Definir como carro ativo">Ativar</button>`:''}
+        <button type="button" class="s" onclick="openCarModal('${c.id}')" title="Editar">Editar</button>
+        ${list.length>1?`<button type="button" class="s" onclick="removerCarro('${c.id}')" style="color:var(--bad)" title="Excluir">×</button>`:''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function openCarModal(id=null){
+  const dlg=$('#dlgCar'); if(!dlg) return;
+  const list=getCarros(), car=id?list.find(c=>c.id===id):null;
+  $('#dlgCarTitle').textContent=car?'Editar Carro':'Cadastrar Novo Carro';
+  $('#carId').value=car?car.id:'';
+  $('#carNome').value=car?car.nome:'';
+  $('#carPlaca').value=car?car.placa:'';
+  $('#carCustoKm').value=car?(car.custo_km||''):(cfg.custo_km||'');
+  $('#carAtivo').checked=car?!!car.ativo:(list.length===0);
+  dlg.showModal();
+}
+
+async function removerCarro(id){
+  let list=getCarros();
+  if(list.length<=1){alert('Você precisa manter pelo menos um carro cadastrado.');return}
+  const target=list.find(c=>c.id===id);
+  if(!confirm(`Excluir o carro "${target?.nome||''} (${target?.placa||''})"?`)) return;
+  const wasActive=target?.ativo||cfg.carro_ativo_id===id;
+  list=list.filter(c=>c.id!==id);
+  if(wasActive&&list.length){
+    list[0].ativo=true;
+    cfg.carro_ativo_id=list[0].id;
+    if(list[0].custo_km) cfg.custo_km=+list[0].custo_km;
+  }
+  cfg.carros=list;
+  await salvarCfg();
+  render();
+  toast('Carro removido');
+}
+
+function openQuickCarSelect(){
+  const dlg=$('#dlgCarSelect'); if(!dlg) return;
+  const list=getCarros(), active=getActiveCar();
+  $('#quickCarList').innerHTML=list.map(c=>{
+    const isAct=c.id===active?.id;
+    return `<button type="button" class="s row" style="width:100%;justify-content:space-between;padding:10px 12px;border-radius:10px;background:var(--bg);${isAct?'border-color:var(--ac)':''}" onclick="setActiveCar('${c.id}');$('#dlgCarSelect').close()">
+      <div style="text-align:left">
+        <span class="car-badge"><span class="car-plate">${esc(c.placa)}</span></span>
+        <b style="margin-left:6px">${esc(c.nome)}</b>
+        <div class="mut" style="font-size:11px;margin-top:2px">Custo: ${R(c.custo_km||cfg.custo_km)}/km</div>
+      </div>
+      <div>${isAct?'<span class="val-pos" style="font-size:12px;font-weight:700">✓ Ativo</span>':'<span class="mut" style="font-size:12px">Selecionar</span>'}</div>
+    </button>`;
+  }).join('');
+  dlg.showModal();
+}
+
+/* ---------- Cálculos Gerais ---------- */
 function compute(){
   const asc=[...rows].sort((a,b)=>new Date(a.ts)-new Date(b.ts)), now=Date.now();
   const days={}, D=k=>days[k]||(days[k]={g:0,d:0,n:0,kmT:0,odo:[],min:0,first:null,last:null,byH:{}});
@@ -180,7 +579,6 @@ function compute(){
   function close(s,t){s.fim=t;sess.push(s)}
   let ativa=null;
   if(open){ if(now-open.ini<16*36e5){ativa=open;sess.push({...open,fim:new Date(),ativa:true})} else sess.push({...open,fim:new Date(+open.ini+36e5)}) }
-  // minutos por dia e por hora-do-dia (para R$/h por faixa)
   const hrsByH=Array(24).fill(0);
   for(const s of sess){
     D(dk(s.ini)).min+=(s.fim-s.ini)/6e4;
@@ -191,7 +589,6 @@ function compute(){
     const o=d.odo.filter(x=>x>1000).sort((a,b)=>a-b);
     d.km=o.length>1?o[o.length-1]-o[0]:d.kmT;
   }
-  // ganhos dentro das sessões
   for(const s of sess){s.g=0;s.n=0;for(const r of asc) if(r.tipo==='ganho'){const t=new Date(r.ts);if(t>=s.ini&&t<=s.fim){s.g+=+r.valor;s.n++}}}
   return {days,sess,ativa,hrsByH,asc,D};
 }
@@ -206,60 +603,399 @@ function render(){
   const lucro=d.g-d.d-(d.km||0)*cfg.custo_km;
   $('#kL').textContent=d.n?R0(lucro):'—';
 
-  // semana
   const ws=weekStart(now); let gs=0, worked=0;
   for(const key in days){const t=new Date(key+'T12:00');if(t>=ws){gs+=days[key].g;if(days[key].n)worked++}}
-  // médias históricas (28 dias trabalhados)
   const past=Object.entries(days).filter(([key,v])=>key<k&&v.n).slice(-28);
   const avgDay=past.length?past.reduce((s,[,v])=>s+v.g,0)/past.length:0;
   const wd=now.getDay(), sameWd=past.filter(([key])=>new Date(key+'T12:00').getDay()===wd);
   const avgWd=sameWd.length?sameWd.reduce((s,[,v])=>s+v.g,0)/sameWd.length:avgDay;
-  // projeção do dia: ritmo atual × horas restantes da jornada
   let pDia;
   if(d.h>.5){pDia=d.g+(d.g/d.h)*Math.max(0,cfg.horas_dia-d.h)}
   else pDia=Math.max(d.g,avgWd);
   $('#pDia').textContent=pDia?R0(pDia):'—';
   const restDias=Math.max(0,cfg.dias_semana-worked-(d.n?0:1));
   const pSem=gs-d.g+Math.max(d.g,pDia)+restDias*(avgDay||pDia);
-  // sessão
   const sAtual=ativa?sess[sess.length-1]:null;
   const ms=[['Dia',d.g,cfg.meta_dia,pDia],['Semana',gs,cfg.meta_semana,pSem]];
   if(sAtual) ms.push(['Sessão',sAtual.g,cfg.meta_sessao,null]);
   $('#metas').innerHTML=ms.map(([n,v,m,p])=>{const pc=Math.min(100,v/m*100||0);
     return `<div class="meta"><div class="row"><span>${n} <span class="mut">${R0(v)} / ${R0(m)}</span></span><span class="mut">${v>=m?'✅ batida':'faltam '+R0(m-v)}${p?' · proj. '+R0(p):''}</span></div><div class="bar"><i style="width:${pc}%;background:${pc>=100?'var(--ac)':pc>60?'var(--ac2)':'var(--warn)'}"></i></div></div>`}).join('');
 
-  // botão sessão
   if(sAtual){const min=(now-sAtual.ini)/6e4;
     $('#sTxt').innerHTML='<span class="on-dot"></span>Sessão desde '+hm(sAtual.ini);
     $('#sInfo').textContent=`${Math.floor(min/60)}h${pad(Math.round(min%60))} · ${R(sAtual.g)} · ${sAtual.n} corridas`+(min>20?` · ${R0(sAtual.g/(min/60))}/h`:'');
     $('#sBtn').textContent='Encerrar';$('#sBtn').className='s';
   }else{$('#sTxt').textContent='Sessão parada';$('#sInfo').textContent=d.h?`Hoje: ${N1(d.h)}h rodadas`:'';$('#sBtn').textContent='Iniciar';$('#sBtn').className='p'}
 
-  renderLista(); renderGraf(); renderIns({d,pDia,gs,pSem,avgDay,sAtual});
+  renderCarBar();
+  renderCarList();
+  renderLista();
+  renderGraf();
+  renderIns({d,pDia,gs,pSem,avgDay,sAtual});
 }
 
-/* ---------- lista ---------- */
-const ICON={ganho:['💵','var(--ac)'],despesa:['⛽','var(--bad)'],odometro:['🧭',''],sessao_ini:['▶️',''],sessao_fim:['⏹','']};
-function renderLista(){
-  const groups={};for(const r of rows.slice(0,shown))(groups[dk(r.ts)]||=[]).push(r);
-  let h='';
-  for(const [key,items] of Object.entries(groups)){
-    const d=M.days[key]||{}, t=new Date(key+'T12:00');
-    h+=`<div class="dh"><span>${DS[t.getDay()]} ${t.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})}</span><span>${R(d.g)}${d.h?' · '+N1(d.h)+'h':''}${d.km?' · '+Math.round(d.km)+' km':''}</span></div><div class="c" style="padding:2px 12px">`;
-    for(const r of items){
-    const [ic,col]=ICON[r.tipo]||['•',''];
-    const titulo=r.tipo==='ganho'?(r.passageiro||'Corrida'):r.tipo==='despesa'?(r.categoria||'Despesa'):r.tipo==='odometro'?'Odômetro':r.tipo==='sessao_ini'?'Início da sessão':'Fim da sessão';
-    const val=r.tipo==='ganho'?'+'+R(+r.valor):r.tipo==='despesa'?'−'+R(+r.valor):r.valor?Number(r.valor).toLocaleString('pt-BR')+' km':'';
-    h+=`<div class="it"><div class="ic">${ic}</div><div><div>${esc(titulo)}${r.origem!=='manual'?`<span class="tag">${r.origem==='whatsapp'?'whats':r.origem}</span>`:''}</div><div class="mut">${hm(r.ts)}${r.km?' · '+N1(r.km)+' km':''}${r.obs?' · '+esc(r.obs):''}</div></div><div class="v" style="color:${col}">${val}</div><button class="x" data-del="${r.id}">×</button></div>`;
-    }
-    h+='</div>';
-  }
-  $('#lista').innerHTML=h||'<div class="c mut">Nenhum lançamento ainda. Digite acima, ex.: <b>25,50 joão</b></div>';
-  $('#mais').hidden=rows.length<=shown;
-}
+/* ---------- Formatação da Tabela ---------- */
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const CAT_ICONS={combustivel:'⛽',alimentacao:'🍔',manutencao:'🔧',lavagem:'🧼',aluguel:'🚗',pedagio:'🛣️',estacionamento:'🅿️',seguro:'🛡️',outros:'💸'};
+const CAT_LABELS={combustivel:'Combustível',alimentacao:'Alimentação',manutencao:'Manutenção',lavagem:'Lavagem',aluguel:'Aluguel',pedagio:'Pedágio',estacionamento:'Estacionamento',seguro:'Seguro',outros:'Outros'};
 
-/* ---------- gráficos (SVG puro) ---------- */
+function getItemIcon(r){
+  if(r.tipo==='ganho') return '💵';
+  if(r.tipo==='odometro') return '🧭';
+  if(r.tipo==='sessao_ini') return '▶️';
+  if(r.tipo==='sessao_fim') return '⏹️';
+  if(r.tipo==='despesa') return CAT_ICONS[r.categoria]||'⛽';
+  return '•';
+}
+
+function getItemCat(r){
+  const tag=r.origem&&r.origem!=='manual'?`<span class="tag">${r.origem==='whatsapp'?'whats':esc(r.origem)}</span>`:'';
+  if(r.tipo==='ganho') return esc(r.categoria||'Corrida')+tag;
+  if(r.tipo==='despesa'){
+    const l=CAT_LABELS[r.categoria]||(r.categoria?r.categoria.charAt(0).toUpperCase()+r.categoria.slice(1):'Despesa');
+    return esc(l)+tag;
+  }
+  if(r.tipo==='odometro') return 'Odômetro';
+  if(r.tipo==='sessao_ini') return 'Início sessão';
+  if(r.tipo==='sessao_fim') return 'Fim sessão'+tag;
+  return '—';
+}
+
+function getItemOdo(r){
+  if(r.tipo==='odometro'||r.tipo==='sessao_ini'||r.tipo==='sessao_fim'){
+    return r.valor?Number(r.valor).toLocaleString('pt-BR')+' km':'—';
+  }
+  return '—';
+}
+
+function getItemObs(r){
+  const parts=[];
+  if(r.tipo==='ganho'&&r.passageiro) parts.push(esc(r.passageiro));
+  const c=getRowObs(r);
+  if(c) parts.push(esc(c));
+  return parts.length?parts.join(' · '):'<span class="mut">—</span>';
+}
+
+function getItemVal(r){
+  if(r.tipo==='ganho') return `<span class="val-pos">+${R(+r.valor)}</span>`;
+  if(r.tipo==='despesa') return `<span class="val-neg">−${R(+r.valor)}</span>`;
+  return '<span class="mut">—</span>';
+}
+
+function renderTableCell(colId, r){
+  switch(colId){
+    case 'col-ic':
+      return `<td class="col-ic"><span class="ic">${getItemIcon(r)}</span></td>`;
+    case 'col-h':
+      return `<td class="col-h">${hm(r.ts)}</td>`;
+    case 'col-carro': {
+      const tag=r._carTag||(r._carObj?r._carObj.placa:null);
+      if(tag){
+        const name=r._carObj?r._carObj.nome:'Carro';
+        return `<td class="col-carro" title="${esc(name)} (${esc(tag)}) · R$ ${N1(r._carCustoKm)}/km"><span class="car-badge"><span class="car-plate">${esc(tag)}</span></span></td>`;
+      }
+      return `<td class="col-carro"><span class="mut">—</span></td>`;
+    }
+    case 'col-odo':
+      return `<td class="col-odo">${getItemOdo(r)}</td>`;
+    case 'col-km-tot': {
+      if(r.tipo==='ganho'){
+        if(r._kmTot>0){
+          if(r._kmVazio>0){
+            return `<td class="col-km-tot" title="Passageiro: ${N1(r._kmPass)} km | Vazio: ${N1(r._kmVazio)} km">${N1(r._kmTot)} km <span class="mut" style="font-size:10px">(${N1(r._kmPass)}p+${N1(r._kmVazio)}v)</span></td>`;
+          }
+          return `<td class="col-km-tot">${N1(r._kmTot)} km</td>`;
+        }
+        return `<td class="col-km-tot"><span class="mut">—</span></td>`;
+      }
+      if(r._deltaOdo){
+        return `<td class="col-km-tot"><span class="val-pos">+${N1(r._deltaOdo)} km</span></td>`;
+      }
+      return `<td class="col-km-tot"><span class="mut">—</span></td>`;
+    }
+    case 'col-tempo': {
+      if(r._tempoMin){
+        const h=Math.floor(r._tempoMin/60), m=r._tempoMin%60;
+        const str=h>0?`${h}h${pad(m)}`:`${m} min`;
+        return `<td class="col-tempo" title="${r._tempoMin} min totais (espera + deslocamento + viagem)">${str}</td>`;
+      }
+      return `<td class="col-tempo"><span class="mut">—</span></td>`;
+    }
+    case 'col-cat':
+      return `<td class="col-cat">${getItemCat(r)}</td>`;
+    case 'col-obs': {
+      const text=getItemObs(r);
+      return `<td class="col-obs" title="${esc(text).replace(/<[^>]+>/g,'')}">${text}</td>`;
+    }
+    case 'col-v':
+      return `<td class="col-v">${getItemVal(r)}</td>`;
+    case 'col-lucro': {
+      if(r.tipo==='ganho'){
+        const title=`Bruto: ${R(+r.valor)} | Custo veículo: ${R(r._custo||0)} (R$ ${N1(r._carCustoKm)}/km)`;
+        const cls=r._lucro>=0?'val-pos':'val-neg';
+        return `<td class="col-lucro" title="${title}"><span class="${cls}">+${R(r._lucro)}</span></td>`;
+      }
+      if(r.tipo==='despesa'){
+        return `<td class="col-lucro"><span class="val-neg">−${R(+r.valor)}</span></td>`;
+      }
+      return `<td class="col-lucro"><span class="mut">—</span></td>`;
+    }
+    case 'col-r-hora': {
+      if(r._rHora){
+        const cls=r._rHora>=50?'val-pos':(r._rHora<25?'val-warn':'');
+        return `<td class="col-r-hora" title="Ganho bruto dividido pelo tempo total do ciclo da corrida"><span class="${cls}">${R0(r._rHora)}/h</span></td>`;
+      }
+      return `<td class="col-r-hora"><span class="mut">—</span></td>`;
+    }
+    case 'col-subtot': {
+      const s=r._subtotal||0;
+      const cls=s>=0?'val-pos':'val-neg';
+      return `<td class="col-subtot" title="Saldo acumulado de hoje até este ponto do dia"><span class="${cls}">${R(s)}</span></td>`;
+    }
+    case 'col-x':
+      return `<td class="col-x"><button class="x-btn" data-del="${r.id}" title="Apagar lançamento">×</button></td>`;
+    default:
+      return '<td>—</td>';
+  }
+}
+
+/* ---------- Filtro e Renderização da Lista ---------- */
+function setFilterPreset(preset){
+  const now=new Date(), kHoje=dk(now);
+  if(preset==='hoje'){ filtroDe=kHoje; filtroAte=kHoje; }
+  else if(preset==='ontem'){ const ont=new Date(now); ont.setDate(ont.getDate()-1); filtroDe=dk(ont); filtroAte=dk(ont); }
+  else if(preset==='semana'){ const ws=weekStart(now); filtroDe=dk(ws); filtroAte=kHoje; }
+  else if(preset==='7d'){ const d7=new Date(now); d7.setDate(d7.getDate()-6); filtroDe=dk(d7); filtroAte=kHoje; }
+  else if(preset==='mes'){ const m1=new Date(now.getFullYear(),now.getMonth(),1); filtroDe=dk(m1); filtroAte=kHoje; }
+  else if(preset==='30d'){ const d30=new Date(now); d30.setDate(d30.getDate()-29); filtroDe=dk(d30); filtroAte=kHoje; }
+  else if(preset==='todos'){ filtroDe=''; filtroAte=''; }
+  filtroData=preset;
+  localStorage.filtroData=preset; localStorage.filtroDe=filtroDe; localStorage.filtroAte=filtroAte;
+  shown=100;
+  syncFilterUI();
+  renderLista();
+}
+
+function syncFilterUI(){
+  $$('#fChips button').forEach(b=>b.classList.toggle('on',b.dataset.f===filtroData));
+  if($('#fIni')) $('#fIni').value=filtroDe;
+  if($('#fFim')) $('#fFim').value=filtroAte;
+}
+
+function onCustomDateChange(){
+  filtroDe=$('#fIni').value; filtroAte=$('#fFim').value;
+  filtroData='custom'; localStorage.filtroData='custom'; localStorage.filtroDe=filtroDe; localStorage.filtroAte=filtroAte;
+  shown=100; syncFilterUI(); renderLista();
+}
+
+function renderLista(){
+  syncFilterUI();
+  const visibleCols=getVisibleCols();
+  const activeCols=ALL_COLUMNS.filter(c=>visibleCols.has(c.id));
+
+  const filtered=rows.filter(r=>{
+    const k=dk(r.ts);
+    if(filtroDe&&k<filtroDe) return false;
+    if(filtroAte&&k>filtroAte) return false;
+    return true;
+  });
+
+  let totG=0, totD=0, totN=0, totKm=0;
+  for(const r of filtered){
+    const v=+r.valor||0;
+    if(r.tipo==='ganho'){ totG+=v; totN++; if(r.km) totKm+=+r.km; }
+    else if(r.tipo==='despesa') totD+=v;
+  }
+  const saldo=totG-totD;
+  if($('#fSumG')) $('#fSumG').textContent=R(totG);
+  if($('#fSumD')) $('#fSumD').textContent=R(totD);
+  if($('#fSumL')){
+    $('#fSumL').textContent=R(saldo);
+    $('#fSumL').className=saldo>=0?'val-pos':'val-neg';
+  }
+  if($('#fSumN')) $('#fSumN').textContent=totN;
+  if($('#fSumK')) $('#fSumK').textContent=totKm?N1(totKm)+' km':'—';
+  if($('#fContador')) $('#fContador').textContent=`${filtered.length} registro${filtered.length===1?'':'s'}`;
+
+  if(!filtered.length){
+    $('#lista').innerHTML=`<div class="c mut" style="text-align:center;padding:24px 12px">
+      Nenhum lançamento no período selecionado.<br>
+      <button type="button" class="s" style="margin-top:10px;padding:6px 14px;font-size:12px" onclick="setFilterPreset('todos')">Ver todos os lançamentos</button>
+    </div>`;
+    $('#mais').hidden=true;
+    return;
+  }
+
+  const groups={};
+  for(const r of filtered.slice(0,shown)) (groups[dk(r.ts)]||=[]).push(r);
+
+  let tbodyHtml='';
+  for(const [key,items] of Object.entries(groups)){
+    const d=M.days?(M.days[key]||{}):{}, t=new Date(key+'T12:00');
+
+    // Processamento cronológico ascendente para calcular subtotal, km e tempos relativos
+    const itemsAsc=[...items].sort((a,b)=>new Date(a.ts)-new Date(b.ts));
+    let dayRunningBalance=0, prevPoint=null, lastOdo=null;
+
+    for(const r of itemsAsc){
+      const v=+r.valor||0;
+      if(r.tipo==='ganho') dayRunningBalance+=v;
+      else if(r.tipo==='despesa') dayRunningBalance-=v;
+      r._subtotal=dayRunningBalance;
+
+      const carTag=getRowCar(r);
+      const carObj=findCar(carTag)||getActiveCar();
+      r._carObj=carObj;
+      r._carTag=carTag||(carObj?carObj.placa:null);
+      const carCustoKm=+(carObj?.custo_km||cfg.custo_km||.45);
+      r._carCustoKm=carCustoKm;
+
+      if((r.tipo==='odometro'||r.tipo==='sessao_ini'||r.tipo==='sessao_fim')&&v>1000){
+        if(lastOdo!==null&&v>=lastOdo){ r._deltaOdo=v-lastOdo; }
+        lastOdo=v;
+      }
+
+      if(r.tipo==='ganho'){
+        const kmPass=+r.km||0;
+        let kmTot=0, kmVazio=0;
+        if(r._deltaOdo&&r._deltaOdo>0){
+          kmTot=r._deltaOdo;
+          kmVazio=Math.max(0,kmTot-kmPass);
+        }else if(kmPass>0){
+          kmTot=kmPass;
+        }
+        r._kmPass=kmPass; r._kmVazio=kmVazio; r._kmTot=kmTot;
+
+        if(prevPoint){
+          const diffMs=new Date(r.ts)-new Date(prevPoint.ts);
+          const diffMin=Math.round(diffMs/60000);
+          if(diffMin>0&&diffMin<=300) r._tempoMin=diffMin;
+        }
+
+        if(r._tempoMin&&r._tempoMin>=3&&v>0){
+          r._rHora=v/(r._tempoMin/60);
+        }
+
+        const kmBase=kmTot>0?kmTot:kmPass;
+        const custo=kmBase*carCustoKm;
+        r._custo=custo;
+        r._lucro=v-custo;
+      }else if(r.tipo==='despesa'){
+        r._custo=v;
+        r._lucro=-v;
+      }
+
+      if(r.tipo==='ganho'||r.tipo==='sessao_ini'||r.tipo==='odometro'){
+        prevPoint=r;
+      }
+    }
+
+    let dayG=0, dayD=0, dayKm=0;
+    for(const item of items){
+      if(item.tipo==='ganho'){ dayG+=+item.valor||0; if(item.km) dayKm+=+item.km; }
+      else if(item.tipo==='despesa') dayD+=+item.valor||0;
+    }
+    const dayKmStr=d.km?Math.round(d.km)+' km':(dayKm?N1(dayKm)+' km':'');
+    const dayHStr=d.h?N1(d.h)+'h':'';
+    const dayMetaStr=[R(dayG),dayHStr,dayKmStr].filter(Boolean).join(' · ');
+
+    tbodyHtml+=`<tr class="tb-sep"><td colspan="${activeCols.length}"><div class="sep-row"><span><b>${DS[t.getDay()]} ${t.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})}</b></span><span>${dayMetaStr}</span></div></td></tr>`;
+
+    for(const r of items){
+      tbodyHtml+='<tr>';
+      for(const col of activeCols){
+        tbodyHtml+=renderTableCell(col.id, r);
+      }
+      tbodyHtml+='</tr>';
+    }
+  }
+
+  const theadHtml=activeCols.map(c=>`<th class="${c.id}">${c.label}</th>`).join('');
+
+  $('#lista').innerHTML=`<div class="table-wrap"><table class="tb">
+    <thead><tr>${theadHtml}</tr></thead>
+    <tbody>${tbodyHtml}</tbody>
+  </table></div>`;
+
+  $('#mais').hidden=filtered.length<=shown;
+  if(!$('#mais').hidden) $('#mais').textContent=`Ver mais (${shown} de ${filtered.length})`;
+}
+
+/* ---------- Customizador de Colunas (Botão Direito) ---------- */
+function openColMenu(x,y){
+  const visible=getVisibleCols();
+  const grid=$('#ctxColsGrid');
+  grid.innerHTML=ALL_COLUMNS.map(col=>{
+    const isChecked=visible.has(col.id);
+    return `<label class="ctx-col-item">
+      <input type="checkbox" data-col="${col.id}" ${isChecked?'checked':''}>
+      <span>${esc(col.label)}</span>
+    </label>`;
+  }).join('');
+
+  grid.onchange=(e)=>{
+    const cb=e.target.closest('input[type="checkbox"]');
+    if(!cb) return;
+    const colId=cb.dataset.col;
+    if(cb.checked){
+      visible.add(colId);
+    }else{
+      if(visible.size<=1){
+        alert('Mantenha pelo menos 1 coluna visível.');
+        cb.checked=true;
+        return;
+      }
+      visible.delete(colId);
+    }
+    localStorage.colunasVisiveis=JSON.stringify([...visible]);
+    renderLista();
+  };
+
+  const menu=$('#colMenu');
+  menu.hidden=false;
+  $('#colBackdrop').hidden=false;
+
+  if(x!==undefined&&y!==undefined&&window.innerWidth>640){
+    const w=330, h=440;
+    const left=Math.min(Math.max(10,x),window.innerWidth-w-10);
+    const top=Math.min(Math.max(10,y),window.innerHeight-h-10);
+    menu.style.left=left+'px';
+    menu.style.top=top+'px';
+    menu.style.transform='none';
+  }else{
+    menu.style.left='50%';
+    menu.style.top='50%';
+    menu.style.transform='translate(-50%, -50%)';
+  }
+}
+
+function closeColMenu(){
+  $('#colMenu').hidden=true;
+  $('#colBackdrop').hidden=true;
+}
+
+$('#btnCloseColMenu').onclick=closeColMenu;
+$('#btnSaveCols').onclick=closeColMenu;
+$('#colBackdrop').onclick=closeColMenu;
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeColMenu(); });
+
+$('#btnResetCols').onclick=()=>{
+  const defSet=new Set(ALL_COLUMNS.filter(c=>c.def).map(c=>c.id));
+  localStorage.colunasVisiveis=JSON.stringify([...defSet]);
+  openColMenu();
+  renderLista();
+  toast('Colunas restauradas para o padrão');
+};
+
+$('#btnEditCols').onclick=()=>openColMenu();
+
+// Captura clique com botão direito na tabela de lançamentos
+$('#lista').addEventListener('contextmenu',e=>{
+  e.preventDefault();
+  openColMenu(e.clientX,e.clientY);
+});
+
+/* ---------- Gráficos (SVG puro) ---------- */
 function bars(data,{h=150,meta=null,fmt=R0,color='var(--ac)'}={}){
   const W=520,pl=4,pb=18,max=Math.max(meta||0,...data.map(d=>d.v),1)*1.1,bw=(W-pl)/data.length;
   let s=`<svg viewBox="0 0 ${W} ${h}" width="100%" role="img">`;
@@ -270,19 +1006,17 @@ function bars(data,{h=150,meta=null,fmt=R0,color='var(--ac)'}={}){
   if(meta){const y=h-pb-(meta/max)*(h-pb-22);s+=`<line x1="0" x2="${W}" y1="${y}" y2="${y}" stroke="var(--warn)" stroke-dasharray="4 4"/><text x="${W-2}" y="${y-3}" text-anchor="end" style="fill:var(--warn)">meta</text>`}
   return s+'</svg>';
 }
+
 function renderGraf(){
   const {days,hrsByH}=M, now=new Date(), d14=[];
   for(let i=13;i>=0;i--){const t=new Date(now);t.setDate(t.getDate()-i);const v=days[dk(t)]||{};d14.push({l:i?DS[t.getDay()].slice(0,1)+t.getDate():'hoje',v:v.g||0})}
-  // R$/h por faixa horária (30 dias)
   const lim=Date.now()-30*864e5, gH=Array(24).fill(0), nH=Array(24).fill(0);
   for(const r of rows) if(r.tipo==='ganho'&&new Date(r.ts)>lim){const h=new Date(r.ts).getHours();gH[h]+=+r.valor;nH[h]++}
   const useRate=hrsByH.some(x=>x>0);
   const perH=gH.map((g,h)=>({l:String(h),v:useRate?(hrsByH[h]>.25?g/hrsByH[h]:0):g}));
-  // por dia da semana (média)
   const wsum=Array(7).fill(0),wn=Array(7).fill(0);
   for(const [key,v] of Object.entries(days)) if(v.n){const w=new Date(key+'T12:00').getDay();wsum[w]+=v.g;wn[w]++}
   const wk=[1,2,3,4,5,6,0].map(w=>({l:DS[w],v:wn[w]?wsum[w]/wn[w]:0}));
-  // semanas
   const ws={};for(const [key,v] of Object.entries(days)){const s=dk(weekStart(key+'T12:00'));ws[s]=(ws[s]||0)+v.g}
   const sem=Object.entries(ws).sort().slice(-8).map(([s,v])=>({l:s.slice(8)+'/'+s.slice(5,7),v}));
   $('#t-graf').innerHTML=
@@ -292,80 +1026,210 @@ function renderGraf(){
    `<div class="c"><b>Semanas</b>${bars(sem,{h:130,meta:cfg.meta_semana,color:'var(--ac2)'})}</div>`;
 }
 
-/* ---------- insights ---------- */
+/* ---------- Insights ---------- */
 function renderIns({d,pDia,gs,pSem,avgDay,sAtual}){
   const {days,hrsByH}=M, out=[], now=new Date();
   const list=Object.entries(days).filter(([,v])=>v.n);
   const add=(t,x)=>out.push(`<div class="ins"><b>${t}</b><span class="mut">${x}</span></div>`);
   if(!list.length){$('#t-ins').innerHTML='<div class="c mut">Lance algumas corridas (com início/fim de sessão e odômetro) para ver insights.</div>';return}
-  // ritmo para meta
   const falta=cfg.meta_dia-d.g;
   if(falta>0&&d.h>.25){const rate=d.g/d.h;add('🎯 Meta do dia',`Faltam ${R0(falta)}. No seu ritmo (${R0(rate)}/h) são mais ${N1(falta/rate)}h.`)}
   else if(falta<=0) add('✅ Meta do dia batida',`Você passou ${R0(-falta)} da meta. Tudo daqui pra frente é extra.`);
   if(pSem<cfg.meta_semana){const rest=Math.max(1,cfg.dias_semana-list.filter(([k])=>new Date(k+'T12:00')>=weekStart(now)).length);
     add('📅 Semana',`Projeção ${R0(pSem)} de ${R0(cfg.meta_semana)}. Para bater, faça ~${R0((cfg.meta_semana-gs)/rest)} por dia nos ${rest} dia(s) restantes.`)}
-  // melhores horários (R$/h)
   const lim=Date.now()-30*864e5, gH=Array(24).fill(0);
   for(const r of rows) if(r.tipo==='ganho'&&new Date(r.ts)>lim) gH[new Date(r.ts).getHours()]+=+r.valor;
   if(hrsByH.some(x=>x>0)){
-    const rate=gH.map((g,h)=>({h,r:hrsByH[h]>=1?g/hrsByH[h]:null})).filter(x=>x.r!=null).sort((a,b)=>b.r-a.r);
-    if(rate.length>=3){const top=rate.slice(0,3),bot=rate.slice(-2);
-      add('⏰ Horários que mais pagam',`${top.map(x=>`${x.h}h (${R0(x.r)}/h)`).join(', ')}. Os piores: ${bot.map(x=>`${x.h}h (${R0(x.r)}/h)`).join(', ')} — considere pausar/almoçar nesses.`)}
-  }else{const top=gH.map((g,h)=>({h,g})).sort((a,b)=>b.g-a.g).slice(0,3).filter(x=>x.g);
-    if(top.length) add('⏰ Horários com mais ganho',`${top.map(x=>x.h+'h').join(', ')}. Use Iniciar/Encerrar sessão para calcular R$/hora real por horário.`)}
-  // dia da semana
-  const ws=Array(7).fill(0),wh=Array(7).fill(0);for(const [k,v] of list){const w=new Date(k+'T12:00').getDay();ws[w]+=v.g;wh[w]+=v.h}
-  const wr=ws.map((g,w)=>({w,r:wh[w]?g/wh[w]:0})).filter(x=>x.r).sort((a,b)=>b.r-a.r);
-  if(wr.length>=3) add('📆 Melhores dias',`${wr.slice(0,2).map(x=>`${DS[x.w]} (${R0(x.r)}/h)`).join(' e ')}. Pior: ${DS[wr[wr.length-1].w]} (${R0(wr[wr.length-1].r)}/h). Se for folgar, folgue no pior.`);
-  // R$/km e custo
+    const best=gH.map((g,h)=>({h,rate:hrsByH[h]>.25?g/hrsByH[h]:0})).filter(x=>x.rate>0).sort((a,b)=>b.rate-a.rate).slice(0,3);
+    if(best.length) add('⚡ Melhores horários',best.map(b=>`${b.h}h (${R0(b.rate)}/h)`).join(' · '));
+  }
   const tot=list.reduce((a,[,v])=>({g:a.g+v.g,km:a.km+v.km,d:a.d+v.d,n:a.n+v.n,h:a.h+v.h}),{g:0,km:0,d:0,n:0,h:0});
   if(tot.km>0){const rk=tot.g/tot.km, liq=rk-cfg.custo_km;
-    add('🛣️ Ganho por km',`Média ${R(rk)}/km rodado; descontando custo (${R(cfg.custo_km)}/km) sobra ${R(liq)}/km. ${rk<2?'Abaixo de R$ 2/km rodado: muito km vazio — fique parado em ponto estratégico em vez de rodar procurando.':'Bom aproveitamento.'} Aceite corridas que paguem pelo menos ~${R(Math.max(1.5,rk))}/km.`)}
-  else add('🛣️ Lance o odômetro','Registre o odômetro no início e no fim (ex.: "inicio 45100" / "fim 45230") para calcular R$/km e lucro real.');
-  // ticket
+    add('🛣️ Ganho por km',`Média ${R(rk)}/km rodado; descontando custo (${R(cfg.custo_km)}/km) sobra ${R(liq)}/km. ${rk<2?'Abaixo de R$ 2/km rodado: muito km vazio — evite rodar procurando passageiro.':'Bom aproveitamento.'}`);
+  }else add('🛣️ Lance o odômetro','Registre o odômetro no início e no fim para calcular R$/km e lucro real.');
   const gan=rows.filter(r=>r.tipo==='ganho'&&new Date(r.ts)>lim), tk=gan.reduce((s,r)=>s+ +r.valor,0)/(gan.length||1);
-  const curtas=gan.filter(r=>+r.valor<10).length;
-  if(gan.length>=10) add('🎟️ Ticket médio',`${R(tk)} por corrida (${gan.length} em 30 dias). ${curtas/gan.length>.35?`${Math.round(curtas/gan.length*100)}% abaixo de R$ 10 — corridas curtas comem tempo de deslocamento; priorize as mais longas nos horários de pico.`:'Boa proporção de corridas médias/longas.'}`);
-  // despesas
-  if(tot.d>0) add('⛽ Despesas',`${Math.round(tot.d/tot.g*100)}% do faturamento vai para despesas lançadas (${R0(tot.d)}). ${tot.d/tot.g>.35?'Está alto: compare preço de combustível, calibre pneus e evite rodar vazio.':''}`);
-  // tendência semanal
-  const ws0=weekStart(now), wPrev=new Date(+ws0-7*864e5), dayIdx=(now.getDay()+6)%7;
-  let cur=0,prev=0;for(const [k,v] of list){const t=new Date(k+'T12:00');if(t>=ws0)cur+=v.g;else if(t>=wPrev&&(t.getDay()+6)%7<=dayIdx)prev+=v.g}
-  if(prev) add(cur>=prev?'📈 Semana acima da anterior':'📉 Semana abaixo da anterior',`${R0(cur)} vs ${R0(prev)} no mesmo ponto da semana passada (${cur>=prev?'+':''}${Math.round((cur/prev-1)*100)}%).`);
-  // horas médias
-  const hd=tot.h/list.length; add('⌛ Jornada',`Média de ${N1(hd)}h/dia e ${R0(avgDay)}/dia nos dias trabalhados (${R0(tot.g/(tot.h||1))}/h).`);
+  if(gan.length>=10) add('🎟️ Ticket médio',`${R(tk)} por corrida (${gan.length} em 30 dias).`);
+  if(tot.d>0) add('⛽ Despesas',`${Math.round(tot.d/tot.g*100)}% do faturamento vai para despesas lançadas (${R0(tot.d)}).`);
   $('#t-ins').innerHTML='<div class="c">'+out.join('')+'</div>';
 }
 
-/* ---------- ações ---------- */
+/* ---------- Ações & Eventos ---------- */
 async function salvar(body){
-  try{const r=await api('entries',{method:'POST',body:JSON.stringify(body)});rows=[...r,...rows].sort((a,b)=>new Date(b.ts)-new Date(a.ts));
-    localStorage.rows=JSON.stringify(rows);render();toast('Salvo ✓ '+r.map(x=>x.tipo==='ganho'?R(+x.valor):x.tipo).join(', '));return true}
-  catch(e){toast(e.message);return false}
+  try{
+    const r=await api('entries',{method:'POST',body:JSON.stringify(body)});
+    rows=[...r,...rows].sort((a,b)=>new Date(b.ts)-new Date(a.ts));
+    localStorage.rows=JSON.stringify(rows);
+    render();
+    toast('Salvo ✓ '+r.map(x=>x.tipo==='ganho'?R(+x.valor):x.tipo).join(', '));
+    return true;
+  }catch(e){toast(e.message);return false}
 }
-$('#qf').onsubmit=async e=>{e.preventDefault();const v=$('#q').value.trim();if(v&&await salvar({text:v}))$('#q').value=''};
-$('#tgF').onclick=e=>{e.preventDefault();$('#ff').hidden=!$('#ff').hidden;$('#fT').value=hm(new Date())};
+
+// Submissão pelo campo rápido
+$('#qf').onsubmit=async e=>{
+  e.preventDefault();
+  const v=$('#q').value.trim();
+  const activeCar=getActiveCar();
+  const carPlaca=activeCar?(activeCar.placa||activeCar.nome):null;
+  if(v&&await salvar({text:v,carro:carPlaca})){
+    $('#q').value='';
+  }
+};
+
+$('#tgF').onclick=e=>{
+  e.preventDefault();
+  $('#ff').hidden=!$('#ff').hidden;
+  $('#fT').value=hm(new Date());
+};
+
 let tipo='ganho';
-$('#tipoC').onclick=e=>{const b=e.target.closest('button');if(!b)return;tipo=b.dataset.t;$$('#tipoC button').forEach(x=>x.classList.toggle('on',x===b));
-  $('#lV').textContent=tipo==='odometro'?'Odômetro (km)':'Valor (R$)';$('#wP').hidden=$('#wK').hidden=tipo!=='ganho';$('#wC').hidden=tipo!=='despesa'};
-$('#ff').onsubmit=async e=>{e.preventDefault();const t=new Date();if($('#fT').value){const [h,m]=$('#fT').value.split(':');t.setHours(+h,+m,0,0);if(t>Date.now()+6e5)t.setDate(t.getDate()-1)}
+$('#tipoC').onclick=e=>{
+  const b=e.target.closest('button');
+  if(!b) return;
+  tipo=b.dataset.t;
+  $$('#tipoC button').forEach(x=>x.classList.toggle('on',x===b));
+  $('#lV').textContent=tipo==='odometro'?'Odômetro (km)':'Valor (R$)';
+  $('#wP').hidden=$('#wK').hidden=tipo!=='ganho';
+  $('#wC').hidden=tipo!=='despesa';
+};
+
+// Submissão pelo formulário completo
+$('#ff').onsubmit=async e=>{
+  e.preventDefault();
+  const t=new Date();
+  if($('#fT').value){
+    const [h,m]=$('#fT').value.split(':');
+    t.setHours(+h,+m,0,0);
+    if(t>Date.now()+6e5)t.setDate(t.getDate()-1);
+  }
   const num=s=>s?parseFloat(s.replace(/\./g,s.includes(',')?'':'.').replace(',','.')):null;
-  const row={tipo,ts:t.toISOString(),valor:num($('#fV').value),origem:'manual'};
+  const selCar=$('#fCar')?.value||(getActiveCar()?getActiveCar().placa:null);
+  const row={tipo,ts:t.toISOString(),valor:num($('#fV').value),origem:'manual',carro:selCar};
   if(tipo==='ganho'){row.passageiro=$('#fP').value.trim()||null;row.km=num($('#fK').value)}
   if(tipo==='despesa')row.categoria=$('#fC').value;
-  if(await salvar({row})){$('#fV').value=$('#fP').value=$('#fK').value=''}};
-$('#sBtn').onclick=async()=>{const ativa=!!M.ativa;const o=prompt((ativa?'Encerrar':'Iniciar')+' sessão — odômetro atual (opcional):','');if(o===null)return;
-  await salvar({row:{tipo:ativa?'sessao_fim':'sessao_ini',ts:new Date().toISOString(),valor:o?parseFloat(o.replace(/\D/g,'')):null,origem:'manual'}})};
-$('#lista').onclick=async e=>{const id=e.target.dataset.del;if(!id||!confirm('Apagar lançamento?'))return;
-  try{await api('entries?id='+id,{method:'DELETE'});rows=rows.filter(r=>r.id!=id);localStorage.rows=JSON.stringify(rows);render()}catch(x){toast(x.message)}};
+  if(await salvar({row,carro:selCar})){
+    $('#fV').value=$('#fP').value=$('#fK').value='';
+  }
+};
+
+// Sessão
+$('#sBtn').onclick=async()=>{
+  const ativa=!!M.ativa;
+  const o=prompt((ativa?'Encerrar':'Iniciar')+' sessão — odômetro atual (opcional):','');
+  if(o===null) return;
+  const selCar=getActiveCar()?getActiveCar().placa:null;
+  await salvar({
+    row:{
+      tipo:ativa?'sessao_fim':'sessao_ini',
+      ts:new Date().toISOString(),
+      valor:o?parseFloat(o.replace(/\D/g,'')):null,
+      origem:'manual',
+      carro:selCar
+    },
+    carro:selCar
+  });
+};
+
+// Chips de Filtro
+$('#fChips').onclick=e=>{
+  const b=e.target.closest('button');
+  if(!b) return;
+  setFilterPreset(b.dataset.f);
+};
+$('#fIni').onchange=$('#fFim').onchange=onCustomDateChange;
+
+// Apagar lançamento
+$('#lista').onclick=async e=>{
+  const b=e.target.closest('[data-del]');
+  if(!b) return;
+  const id=b.dataset.del;
+  if(!confirm('Apagar lançamento?')) return;
+  try{await api('entries?id='+id,{method:'DELETE'});rows=rows.filter(r=>r.id!=id);localStorage.rows=JSON.stringify(rows);render()}catch(x){toast(x.message)}
+};
+
 $('#mais').onclick=()=>{shown+=100;renderLista()};
-$$('nav button').forEach(b=>b.onclick=()=>{$$('nav button').forEach(x=>x.classList.toggle('on',x===b));$$('.tab').forEach(t=>t.classList.toggle('on',t.id==='t-'+b.dataset.tab));
-  if(b.dataset.tab==='cfg')for(const k in DEF)$('#cf [name='+k+']').value=cfg[k]});
-$('#cf').onsubmit=async e=>{e.preventDefault();const f=new FormData(e.target),c={};for(const [k,v] of f)c[k]=parseFloat(String(v).replace(',','.'))||DEF[k];
-  try{cfg={...DEF,...await api('config',{method:'POST',body:JSON.stringify(c)})};localStorage.cfg=JSON.stringify(cfg);render();toast('Metas salvas ✓')}catch(x){toast(x.message)}};
-$('#ajuda').innerHTML=`<b style="color:var(--tx)">Como lançar (app ou grupo "Uber" no WhatsApp)</b><br>
+
+// Navegação das Tabs
+$$('nav button').forEach(b=>b.onclick=()=>{
+  $$('nav button').forEach(x=>x.classList.toggle('on',x===b));
+  $$('.tab').forEach(t=>t.classList.toggle('on',t.id==='t-'+b.dataset.tab));
+  if(b.dataset.tab==='cfg'){
+    for(const k in DEF) if($('#cf [name='+k+']')) $('#cf [name='+k+']').value=cfg[k]||'';
+    renderCarList();
+  }
+});
+
+// Formulário de Metas
+$('#cf').onsubmit=async e=>{
+  e.preventDefault();
+  const f=new FormData(e.target);
+  for(const [k,v] of f) cfg[k]=parseFloat(String(v).replace(',','.'))||DEF[k];
+  await salvarCfg();
+  render();
+  toast('Metas salvas ✓');
+};
+
+// Abertura e Gestão de Carros
+$('#carActiveBtn').onclick=()=>openQuickCarSelect();
+$('#btnOpenCarConfig').onclick=(e)=>{
+  e.preventDefault();
+  $$('nav button').forEach(x=>x.classList.toggle('on',x.dataset.tab==='cfg'));
+  $$('.tab').forEach(t=>t.classList.toggle('on',t.id==='t-cfg'));
+  for(const k in DEF) if($('#cf [name='+k+']')) $('#cf [name='+k+']').value=cfg[k]||'';
+  renderCarList();
+  $('#sec-carros').scrollIntoView({behavior:'smooth'});
+};
+$('#btnAddCar').onclick=()=>openCarModal();
+$('#btnQuickAddCar').onclick=()=>{ $('#dlgCarSelect').close(); openCarModal(); };
+$('#btnCloseCarSelect').onclick=$('#btnQuickClose').onclick=()=>$('#dlgCarSelect').close();
+$('#btnCancelCar').onclick=()=>$('#dlgCar').close();
+
+// Salvar Carro no Modal
+$('#fCarModal').onsubmit=async e=>{
+  e.preventDefault();
+  const id=$('#carId').value.trim();
+  const nome=$('#carNome').value.trim();
+  const placa=$('#carPlaca').value.trim().toUpperCase();
+  const custo=parseFloat($('#carCustoKm').value.replace(',','.'))||cfg.custo_km||.45;
+  const isAtivo=$('#carAtivo').checked;
+
+  const list=getCarros();
+  if(id){
+    const target=list.find(c=>c.id===id);
+    if(target){
+      target.nome=nome;
+      target.placa=placa;
+      target.custo_km=custo;
+      if(isAtivo){
+        for(const c of list) c.ativo=(c.id===id);
+        cfg.carro_ativo_id=id;
+        cfg.custo_km=custo;
+      }
+    }
+  }else{
+    const newId='c_'+Date.now().toString(36);
+    const newCar={id:newId,nome,placa,custo_km:custo,ativo:isAtivo||list.length===0};
+    if(newCar.ativo){
+      for(const c of list) c.ativo=false;
+      cfg.carro_ativo_id=newId;
+      cfg.custo_km=custo;
+    }
+    list.push(newCar);
+  }
+
+  cfg.carros=list;
+  await salvarCfg();
+  $('#dlgCar').close();
+  render();
+  toast('Carro salvo ✓');
+};
+
+$('#ajuda').innerHTML=`<b style="color:var(--tx)">Como lançar (app ou WhatsApp)</b><br>
 <code>25,50 joão 14:30</code> corrida · <code>18 maria 6km</code> com km<br><code>odo 45230</code> odômetro · <code>gas 150</code> / <code>almoço 25</code> despesa<br>
-<code>inicio 45100</code> / <code>fim 45230</code> sessão · várias linhas = vários lançamentos`;
+<code>inicio 45100</code> / <code>fim 45230</code> sessão · cada linha = um lançamento`;
+
+if(filtroData&&filtroData!=='custom') setFilterPreset(filtroData);
+else syncFilterUI();
 
 render(); load();
 setInterval(()=>{if(!document.hidden)load()},60e3);

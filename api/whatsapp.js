@@ -47,8 +47,19 @@ export default async function handler(req, res) {
       if (!gid && m.chatName && m.chatName.toLowerCase() !== gname) return send(res, 200, { ignored: 'outro grupo', chatName: m.chatName });
     }
 
+    const cfgRes = await sb('config?id=eq.1&select=dados').catch(() => []);
+    const cfgDados = cfgRes[0]?.dados || {};
+    const activeCar = cfgDados.carros?.find(c => c.id === cfgDados.carro_ativo_id || c.ativo) || cfgDados.carros?.[0];
+    const carTag = activeCar ? (activeCar.placa || activeCar.nome) : null;
+
     const now = m.ts ? new Date(m.ts) : new Date();
-    const rows = parseText(m.text, now).map((r, i) => ({ ...r, origem: 'whatsapp', ext_id: m.id ? `wa:${m.id}:${i}` : null }));
+    const rows = parseText(m.text, now).map((r, i) => {
+      let obs = r.obs || null;
+      if (carTag && !/\[(?:🚗|carro:)/i.test(obs || '')) {
+        obs = `[🚗 ${carTag}]${obs ? ' ' + obs : ''}`;
+      }
+      return { ...r, obs, origem: 'whatsapp', ext_id: m.id ? `wa:${m.id}:${i}` : null };
+    });
     if (!rows.length) return send(res, 200, { ignored: 'não entendi', text: m.text });
     const out = await insert(rows);
     send(res, 200, { ok: true, salvos: out.length, rows: out, chatId: m.chatId });

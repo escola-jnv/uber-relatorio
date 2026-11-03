@@ -2,5 +2,13 @@
   "name": "uber-relatorio",
   "private": true,
   "type": "module",
-  "engines": { "node": ">=18" }
+  "description": "App de relatório e controle de corridas Uber",
+  "scripts": {
+    "dev": "node --watch server.js",
+    "start": "node server.js",
+    "test": "node test/test-server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
 }

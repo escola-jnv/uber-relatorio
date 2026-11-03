@@ -2,6 +2,30 @@
 
 App de 1 página (HTML+JS puro, ~8 KB gzip) + 4 funções serverless na Vercel + Supabase.
 
+## Rodando Localmente (Node.js)
+
+Para rodar e testar tudo localmente sem precisar fazer deploy na Vercel:
+
+1. **Configure o `.env`**:
+   ```bash
+   # No Windows PowerShell:
+   Copy-Item .env.example .env
+   # No Linux/Mac:
+   cp .env.example .env
+   ```
+   Preencha `SUPABASE_URL` e `SUPABASE_SERVICE_ROLE_KEY` (se já tiver o banco criado).
+
+2. **Inicie o servidor local** (com auto-reload a cada alteração de código):
+   ```bash
+   npm run dev
+   ```
+   Acesse a aplicação em [http://localhost:3000](http://localhost:3000).
+
+3. **Execute a bateria de testes**:
+   ```bash
+   npm test
+   ```
+
 ## Deploy (5 min)
 1. **Supabase** → projeto `uber-relatorio` (sa-east-1) já criado com o schema. Para recriar em outro projeto: SQL Editor → `supabase/schema.sql`.
 2. **Vercel** → importe esta pasta (ou `vercel --prod` dentro dela). Framework: *Other*.

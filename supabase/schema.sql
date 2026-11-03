@@ -20,7 +20,11 @@ create table if not exists config (
 );
 insert into config (id, dados) values (1, '{
   "meta_dia": 300, "meta_semana": 1800, "meta_sessao": 150,
-  "horas_dia": 8, "dias_semana": 6, "custo_km": 0.45
+  "horas_dia": 8, "dias_semana": 6, "custo_km": 0.45,
+  "carros": [
+    { "id": "c1", "nome": "Carro Principal", "placa": "ABC-1234", "custo_km": 0.45, "ativo": true }
+  ],
+  "carro_ativo_id": "c1"
 }') on conflict (id) do nothing;
 
 -- Acesso só pelo servidor (service role). Sem policies = navegador não acessa direto.

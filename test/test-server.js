@@ -53,6 +53,20 @@ test('Lê despesa de combustível', () => {
   assert.equal(r.categoria, 'combustivel');
 });
 
+test('Lê despesa de aluguel do carro (custo fixo)', () => {
+  const r = parseLine('aluguel 560');
+  assert.equal(r.tipo, 'despesa');
+  assert.equal(r.valor, 560);
+  assert.equal(r.categoria, 'aluguel');
+});
+
+test('Lê abastecimento com palavra-chave alternativa', () => {
+  const r = parseLine('abasteci 180');
+  assert.equal(r.tipo, 'despesa');
+  assert.equal(r.valor, 180);
+  assert.equal(r.categoria, 'combustivel');
+});
+
 test('Lê odômetro', () => {
   const r = parseLine('odo 45230');
   assert.equal(r.tipo, 'odometro');
@@ -96,6 +110,32 @@ server.listen(0, async () => {
       assert.ok(text.includes('carActiveBtn'), 'Elemento carActiveBtn deve existir no HTML');
       assert.ok(text.includes('dlgCar'), 'Modal de carros dlgCar deve existir no HTML');
       assert.ok(text.includes('colMenu'), 'Menu de colunas colMenu deve existir no HTML');
+      assert.ok(text.includes('dlgEditItem'), 'Modal de edição de lançamento dlgEditItem deve existir no HTML');
+      assert.ok(text.includes('dlgStartSessao'), 'Modal de início de sessão dlgStartSessao com meta calculada deve existir no HTML');
+      assert.ok(text.includes('edit-btn'), 'Classe edit-btn do ícone lápis deve existir no HTML');
+      assert.ok(text.includes('meta_lucro_sessao'), 'Campo de meta de lucro da sessão deve existir no HTML');
+      assert.ok(text.includes('carTipo'), 'Campo de tipo de carro (alugado/próprio) deve existir no modal');
+      assert.ok(text.includes('startSessaoMetaCalc'), 'Exibição da meta de sessão calculada dinamicamente deve existir no HTML');
+      assert.ok(text.includes('editItemOdo'), 'Campo para edição de odômetro deve existir no modal');
+    });
+
+    await asyncTest('Serve estilos CSS (public/css/app.css) com colunas customizadas', async () => {
+      const res = await fetch(`${baseUrl}/css/app.css`);
+      assert.equal(res.status, 200);
+      assert.match(res.headers.get('content-type') || '', /text\/css/);
+      const css = await res.text();
+      assert.ok(css.includes('tag-est'), 'Classe tag-est deve existir no CSS');
+      assert.ok(css.includes('col-passageiro'), 'Classe col-passageiro deve existir no CSS');
+      assert.ok(css.includes('col-edit'), 'Classe col-edit deve existir no CSS');
+      assert.ok(css.includes('col-odo'), 'Classe col-odo deve existir no CSS');
+      assert.ok(css.includes('col-tempo'), 'Classe col-tempo deve existir no CSS');
+    });
+
+    await asyncTest('Serve script de tabela (public/js/components/table.js) com estimativa de odômetro', async () => {
+      const res = await fetch(`${baseUrl}/js/components/table.js`);
+      assert.equal(res.status, 200);
+      const js = await res.text();
+      assert.ok(js.includes('computeAllOdometersAndTimes'), 'Função computeAllOdometersAndTimes deve existir');
     });
 
     await asyncTest('Serve manifest webmanifest com tipo correto', async () => {

@@ -1,5 +1,6 @@
 import { sb, insert, authed, readBody, send } from '../lib/db.js';
 import { parseText } from '../lib/parse.js';
+import { fixOdoRows } from '../lib/odo.js';
 
 // GET ?days=60 | POST {text} ou {row} | PATCH ?id= {campos} | DELETE ?id=
 export default async function handler(req, res) {
@@ -9,7 +10,7 @@ export default async function handler(req, res) {
     if (req.method === 'GET') {
       const days = Math.min(+q.get('days') || 60, 730);
       const since = new Date(Date.now() - days * 864e5).toISOString();
-      const rows = await sb(`lancamentos?select=id,ts,tipo,valor,km,passageiro,categoria,obs,origem&ts=gte.${since}&order=ts.desc&limit=5000`);
+      const rows = await sb(`lancamentos?select=id,ts,tipo,valor,km,passageiro,categoria,obs,origem,carro_id&ts=gte.${since}&order=ts.desc&limit=5000`);
       return send(res, 200, rows);
     }
     if (req.method === 'POST') {
@@ -26,6 +27,7 @@ export default async function handler(req, res) {
         }
         return { ...r, obs, origem: r.origem || 'manual' };
       });
+      await fixOdoRows(mapped, sb, carTag); // odômetro de 3 dígitos → leitura completa
       const out = await insert(mapped);
       return send(res, 200, out);
     }

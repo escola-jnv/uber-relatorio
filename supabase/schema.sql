@@ -2,7 +2,7 @@
 create table if not exists lancamentos (
   id          bigint generated always as identity primary key,
   ts          timestamptz not null default now(),
-  tipo        text not null check (tipo in ('ganho','odometro','despesa','sessao_ini','sessao_fim')),
+  tipo        text not null check (tipo in ('ganho','odometro','despesa','sessao_ini','sessao_fim','pausa_ini','pausa_fim')),
   valor       numeric,          -- R$ (ganho/despesa) ou km do odômetro (odometro/sessão)
   km          numeric,          -- km da corrida (opcional)
   passageiro  text,

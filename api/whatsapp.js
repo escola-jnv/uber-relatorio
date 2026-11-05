@@ -2,7 +2,8 @@
 // Só aceita mensagens do grupo configurado:
 //   WA_GROUP_NAME (padrão "Uber")  — usado quando o provedor envia o nome do grupo (Z-API)
 //   WA_GROUP_ID   (ex.: 1203...@g.us) — usado quando só vem o id do grupo (Evolution/WAHA)
-import { insert, authed, readBody, send } from '../lib/db.js';
+import { sb, insert, authed, readBody, send } from '../lib/db.js';
+import { fixOdoRows } from '../lib/odo.js';
 import { parseText } from '../lib/parse.js';
 
 function extract(b) {
@@ -61,6 +62,7 @@ export default async function handler(req, res) {
       return { ...r, obs, origem: 'whatsapp', ext_id: m.id ? `wa:${m.id}:${i}` : null };
     });
     if (!rows.length) return send(res, 200, { ignored: 'não entendi', text: m.text });
+    await fixOdoRows(rows, sb, carTag); // WhatsApp manda só 3 dígitos do odômetro
     const out = await insert(rows);
     send(res, 200, { ok: true, salvos: out.length, rows: out, chatId: m.chatId });
   } catch (e) { send(res, 500, { error: e.message }); }

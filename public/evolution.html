@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#050706">
+  <title>Conexão WhatsApp — Uber Pro Max</title>
+  <link rel="preload" href="/fonts/space-grotesk.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="icon" href="/icon.svg">
+  <link rel="stylesheet" href="/css/app.css">
+  <style>
+    body {
+      background: var(--bg, #050706);
+      color: var(--tx, #e8f5ee);
+      font-family: 'Inter', system-ui, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .wrap {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .card-evo {
+      background: var(--card, #0b100d);
+      border: 1px solid var(--line, #1b2820);
+      border-radius: 14px;
+      padding: 16px;
+    }
+    .qr-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: #060907;
+      border: 1px dashed var(--line, #1b2820);
+      border-radius: 12px;
+      margin: 14px 0;
+      min-height: 280px;
+      text-align: center;
+    }
+    .qr-img {
+      max-width: 250px;
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      background: #fff;
+      padding: 12px;
+      box-shadow: 0 4px 20px rgba(0, 255, 136, 0.15);
+    }
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+    }
+    .status-open {
+      background: rgba(0, 255, 136, 0.15);
+      color: #00ff88;
+      border: 1px solid rgba(0, 255, 136, 0.4);
+    }
+    .status-connecting {
+      background: rgba(255, 194, 51, 0.15);
+      color: #ffc233;
+      border: 1px solid rgba(255, 194, 51, 0.4);
+    }
+    .status-close {
+      background: rgba(255, 77, 94, 0.15);
+      color: #ff4d5e;
+      border: 1px solid rgba(255, 77, 94, 0.4);
+    }
+    .status-offline {
+      background: rgba(127, 148, 138, 0.15);
+      color: #7f948a;
+      border: 1px solid rgba(127, 148, 138, 0.3);
+    }
+    .btn-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .btn-primary {
+      background: var(--ac, #00ff88);
+      color: #03130a;
+    }
+    .btn-primary:hover {
+      filter: brightness(1.1);
+    }
+    .btn-sec {
+      background: var(--elev, #111915);
+      color: var(--tx, #e8f5ee);
+      border: 1px solid var(--line, #1b2820);
+    }
+    .btn-sec:hover {
+      background: #19241f;
+    }
+    .btn-danger {
+      background: rgba(255, 77, 94, 0.15);
+      color: #ff4d5e;
+      border: 1px solid rgba(255, 77, 94, 0.3);
+    }
+    .input-field {
+      width: 100%;
+      background: #070b09;
+      border: 1px solid var(--line, #1b2820);
+      border-radius: 8px;
+      padding: 9px 12px;
+      color: var(--tx, #e8f5ee);
+      font-size: 14px;
+      box-sizing: border-box;
+      outline: none;
+    }
+    .input-field:focus {
+      border-color: var(--ac, #00ff88);
+    }
+    .form-group {
+      margin-bottom: 12px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      color: var(--mut, #7f948a);
+      margin-bottom: 4px;
+      font-weight: 500;
+    }
+    .mode-tabs {
+      display: flex;
+      gap: 8px;
+      background: #070b09;
+      padding: 4px;
+      border-radius: 10px;
+      border: 1px solid var(--line, #1b2820);
+    }
+    .mode-tab {
+      flex: 1;
+      padding: 8px 12px;
+      border: none;
+      background: transparent;
+      color: var(--mut, #7f948a);
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s ease;
+    }
+    .mode-tab.active {
+      background: var(--elev, #111915);
+      color: var(--ac, #00ff88);
+      border: 1px solid rgba(0, 255, 136, 0.3);
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <!-- Topo -->
+  <header style="display:flex;justify-content:space-between;align-items:center;padding:8px 0">
+    <div style="display:flex;align-items:center;gap:10px">
+      <img src="/icon.svg" alt="" width="32" height="32">
+      <div>
+        <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px">WhatsApp Conector</div>
+        <div style="font-size:11px;color:var(--mut)">Login com QR Code & Telemetria</div>
+      </div>
+    </div>
+    <a href="/" class="btn-action btn-sec" style="text-decoration:none;font-size:13px;padding:6px 12px">
+      ← Voltar ao App
+    </a>
+  </header>
+
+  <!-- Seletor de Modo -->
+  <div class="mode-tabs">
+    <button type="button" class="mode-tab active" id="tabModeLocal" onclick="setMode('local')">
+      ⚡ Conexão Direta Local (Sem Docker)
+    </button>
+    <button type="button" class="mode-tab" id="tabModeExternal" onclick="setMode('external')">
+      🌐 Evolution API Externa (Docker / VPS)
+    </button>
+  </div>
+
+  <!-- Card 1: Estado da Conexão & QR Code -->
+  <div class="card-evo">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <b style="font-size:15px" id="titleStatus">📱 WhatsApp Local</b>
+      <span id="statusBadge" class="status-pill status-offline">● Verificando...</span>
+    </div>
+
+    <!-- Área de Exibição do QR Code / Sucesso -->
+    <div class="qr-container" id="qrContainer">
+      <div id="qrLoading">
+        <div style="font-size:28px;margin-bottom:8px">📲</div>
+        <div style="font-weight:600">WhatsApp Desconectado</div>
+        <div class="mut" style="font-size:12px;margin:6px 0 14px">
+          Clique no botão verde abaixo para gerar o QR Code instantâneo.
+        </div>
+        <button type="button" class="btn-action btn-primary" onclick="generateQr()">
+          ⚡ Gerar QR Code Agora
+        </button>
+      </div>
+    </div>
+
+    <!-- Controles do QR Code -->
+    <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:10px">
+      <button type="button" class="btn-action btn-primary" id="btnConnect" onclick="generateQr()">
+        ⚡ Gerar / Atualizar QR Code
+      </button>
+      <button type="button" class="btn-action btn-sec" id="btnCheckStatus" onclick="checkStatus(false)">
+        🔄 Checar Status
+      </button>
+      <button type="button" class="btn-action btn-danger" id="btnDisconnect" onclick="disconnect()" style="display:none">
+        🔌 Desconectar WhatsApp
+      </button>
+    </div>
+  </div>
+
+  <!-- Card Modo Local: Informações -->
+  <div class="card-evo" id="boxLocalInfo">
+    <b style="font-size:14px;color:var(--ac)">✔ Modo Local Direto Ativado:</b>
+    <div class="mut" style="font-size:12px;line-height:1.6;margin-top:6px">
+      Esse modo conecta seu WhatsApp <b>diretamente pelo Node.js</b>, sem precisar de Docker, Linux ou Evolution API instalada externamente.
+      Todas as mensagens enviadas no seu grupo (ex: <code>Uber</code>) são interpretadas e registradas automaticamente nas corridas!
+    </div>
+  </div>
+
+  <!-- Card Modo Externo: Credenciais da Evolution API (visível apenas no modo externo) -->
+  <div class="card-evo" id="boxExternalConfig" style="display:none">
+    <b style="font-size:15px">⚙️ Configurações da Evolution API Externa</b>
+    <div class="mut" style="font-size:12px;margin:6px 0 12px">
+      Use este modo se você já possui uma Evolution API rodando em uma VPS, servidor na nuvem ou container Docker ativo.
+    </div>
+
+    <div class="form-group">
+      <label>URL do Servidor Evolution:</label>
+      <input type="url" id="inpEvoUrl" class="input-field" placeholder="http://localhost:8080 ou https://evo.seusite.com">
+    </div>
+
+    <div class="form-group">
+      <label>API Key (AUTHENTICATION_API_KEY):</label>
+      <input type="password" id="inpEvoKey" class="input-field" placeholder="Chave da Evolution API">
+    </div>
+
+    <div class="form-group">
+      <label>Nome da Instância:</label>
+      <input type="text" id="inpEvoInstance" class="input-field" value="uber" placeholder="ex: uber">
+    </div>
+
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:10px">
+      <button type="button" class="btn-action btn-sec" onclick="checkStatus(false)" style="font-size:13px">
+        Testar Conexão
+      </button>
+    </div>
+  </div>
+
+  <!-- Dica de Uso -->
+  <div class="card-evo" style="background:#070b09;border-color:rgba(0,255,136,0.2)">
+    <b style="color:var(--ac);font-size:14px">💡 Passo a passo para conectar:</b>
+    <ol style="font-size:12px;color:var(--mut);line-height:1.6;margin:8px 0 0;padding-left:18px">
+      <li>Clique em <b>⚡ Gerar / Atualizar QR Code</b> acima.</li>
+      <li>Abra o <b>WhatsApp</b> no celular → Menu (3 pontinhos) ou Configurações → <b>Aparelhos conectados</b> → <b>Conectar aparelho</b>.</li>
+      <li>Aponte a câmera para o QR Code na tela.</li>
+      <li>Assim que conectar, qualquer lançamento enviado no grupo (ex: <code>25 joao 14:30</code> ou <code>odo 45000</code>) cai direto no seu relatório!</li>
+    </ol>
+  </div>
+</div>
+
+<script>
+  const $ = id => document.getElementById(id);
+
+  let currentMode = 'local';
+  let pollInterval = null;
+
+  function setMode(mode) {
+    currentMode = mode;
+    $('tabModeLocal').className = `mode-tab ${mode === 'local' ? 'active' : ''}`;
+    $('tabModeExternal').className = `mode-tab ${mode === 'external' ? 'active' : ''}`;
+
+    if (mode === 'local') {
+      $('boxLocalInfo').style.display = 'block';
+      $('boxExternalConfig').style.display = 'none';
+      $('titleStatus').innerText = '📱 WhatsApp Local (Nativo)';
+    } else {
+      $('boxLocalInfo').style.display = 'none';
+      $('boxExternalConfig').style.display = 'block';
+      $('titleStatus').innerText = '📱 Evolution API Externa';
+    }
+
+    checkStatus(false);
+  }
+
+  function setBadge(state, label) {
+    const badge = $('statusBadge');
+    badge.className = 'status-pill';
+    if (state === 'open') {
+      badge.classList.add('status-open');
+      badge.innerHTML = `🟢 ${label || 'Conectado'}`;
+    } else if (state === 'connecting') {
+      badge.classList.add('status-connecting');
+      badge.innerHTML = `🟡 ${label || 'Aguardando Leitura'}`;
+    } else if (state === 'close') {
+      badge.classList.add('status-close');
+      badge.innerHTML = `🔴 ${label || 'Desconectado'}`;
+    } else {
+      badge.classList.add('status-offline');
+      badge.innerHTML = `⚪ ${label || 'Offline'}`;
+    }
+  }
+
+  function buildQuery() {
+    const p = new URLSearchParams();
+    p.set('mode', currentMode);
+    if (currentMode === 'external') {
+      const url = $('inpEvoUrl').value.trim();
+      const key = $('inpEvoKey').value.trim();
+      const inst = $('inpEvoInstance').value.trim();
+      if (url) p.set('apiUrl', url);
+      if (key) p.set('apiKey', key);
+      if (inst) p.set('instance', inst);
+    }
+    return p.toString();
+  }
+
+  async function checkStatus(silent = false) {
+    if (!silent) setBadge('offline', 'Verificando...');
+
+    try {
+      const q = buildQuery();
+      const res = await fetch(`/api/evolution?action=status&${q}`);
+      const data = await res.json();
+
+      if (!res.ok) {
+        setBadge('offline', 'Inacessível');
+        if (!silent) {
+          $('qrContainer').innerHTML = `
+            <div style="color:var(--bad);font-size:26px;margin-bottom:8px">⚠️</div>
+            <div style="font-weight:600;color:var(--bad)">Não foi possível conectar</div>
+            <div class="mut" style="font-size:12px;margin-top:6px;max-width:400px">${data.error || 'Erro ao checar status.'}</div>
+          `;
+        }
+        return 'offline';
+      }
+
+      if (data.connected || data.state === 'open') {
+        setBadge('open', 'WhatsApp Conectado');
+        $('btnDisconnect').style.display = 'inline-flex';
+        $('qrContainer').innerHTML = `
+          <div style="font-size:36px;margin-bottom:8px">✅</div>
+          <div style="font-weight:700;font-size:18px;color:var(--ac)">WhatsApp Conectado com Sucesso!</div>
+          <div class="mut" style="font-size:13px;margin-top:6px">
+            Seu WhatsApp já está conectado e pronto para receber mensagens e lançamentos.
+          </div>
+          <div style="margin-top:14px">
+            <a href="/" class="btn-action btn-primary" style="text-decoration:none;font-size:13px">
+              Ir para Lançamentos →
+            </a>
+          </div>
+        `;
+        stopPolling();
+        return 'open';
+      }
+
+      if (data.state === 'close') {
+        setBadge('close', 'Desconectado');
+        $('btnDisconnect').style.display = 'none';
+        if (!silent) {
+          $('qrContainer').innerHTML = `
+            <div style="font-size:30px;margin-bottom:8px">📲</div>
+            <div style="font-weight:600">WhatsApp Desconectado</div>
+            <div class="mut" style="font-size:12px;margin:6px 0 14px">Clique abaixo para gerar o QR Code.</div>
+            <button type="button" class="btn-action btn-primary" onclick="generateQr()">
+              ⚡ Gerar QR Code Agora
+            </button>
+          `;
+        }
+        return 'close';
+      }
+
+      if (data.state === 'connecting') {
+        setBadge('connecting', 'Aguardando Leitura');
+        if (data.base64) {
+          const qrImg = $('qrContainer').querySelector('.qr-img');
+          if (qrImg) {
+            if (qrImg.src !== data.base64) qrImg.src = data.base64;
+          } else {
+            $('qrContainer').innerHTML = `
+              <img src="${data.base64}" alt="QR Code WhatsApp" class="qr-img">
+              <div style="font-weight:600;font-size:14px;margin-top:12px">Aponte a câmera do WhatsApp para o código</div>
+              <div class="mut" style="font-size:12px;margin-top:4px">
+                WhatsApp > Aparelhos Conectados > Conectar Aparelho
+              </div>
+              <div style="font-size:11px;color:var(--ac);margin-top:8px">
+                ● Aguardando leitura... Atualiza automaticamente!
+              </div>
+            `;
+          }
+          startPolling();
+        }
+        return 'connecting';
+      }
+
+      setBadge('connecting', 'Conectando...');
+      return data.state;
+    } catch (err) {
+      setBadge('offline', 'Erro');
+      return 'offline';
+    }
+  }
+
+  async function generateQr() {
+    setBadge('connecting', 'Gerando QR Code...');
+    $('qrContainer').innerHTML = `
+      <div style="font-size:28px;margin-bottom:8px">⌛</div>
+      <div style="font-weight:600">Iniciando e gerando QR Code...</div>
+      <div class="mut" style="font-size:12px;margin-top:4px">Isso leva apenas 2 a 3 segundos</div>
+    `;
+
+    try {
+      const q = buildQuery();
+      const res = await fetch(`/api/evolution?action=connect&${q}`);
+      const data = await res.json();
+
+      if (!res.ok) {
+        setBadge('close', 'Falha');
+        $('qrContainer').innerHTML = `
+          <div style="color:var(--bad);font-size:26px;margin-bottom:8px">❌</div>
+          <div style="font-weight:600;color:var(--bad)">Falha ao gerar QR Code</div>
+          <div class="mut" style="font-size:12px;margin-top:6px;max-width:400px">${data.error || 'Erro'}</div>
+        `;
+        return;
+      }
+
+      if (data.connected || data.state === 'open') {
+        checkStatus();
+        return;
+      }
+
+      if (data.base64) {
+        setBadge('connecting', 'Aguardando Leitura');
+        $('qrContainer').innerHTML = `
+          <img src="${data.base64}" alt="QR Code WhatsApp" class="qr-img">
+          <div style="font-weight:600;font-size:14px;margin-top:12px">Aponte a câmera do WhatsApp para o código</div>
+          <div class="mut" style="font-size:12px;margin-top:4px">
+            WhatsApp > Aparelhos Conectados > Conectar Aparelho
+          </div>
+          <div style="font-size:11px;color:var(--ac);margin-top:8px">
+            ● Aguardando leitura... Atualiza automaticamente!
+          </div>
+        `;
+        startPolling();
+      } else {
+        checkStatus();
+      }
+    } catch (err) {
+      setBadge('offline', 'Falha');
+      $('qrContainer').innerHTML = `
+        <div style="color:var(--bad);font-size:26px;margin-bottom:8px">❌</div>
+        <div style="font-weight:600;color:var(--bad)">Erro de conexão</div>
+        <div class="mut" style="font-size:12px;margin-top:6px">${err.message}</div>
+      `;
+    }
+  }
+
+  async function disconnect() {
+    if (!confirm('Deseja realmente desconectar o WhatsApp?')) return;
+    try {
+      const q = buildQuery();
+      await fetch(`/api/evolution?action=disconnect&${q}`, { method: 'POST' });
+      checkStatus();
+    } catch (err) {
+      alert('Erro: ' + err.message);
+    }
+  }
+
+  function startPolling() {
+    stopPolling();
+    pollInterval = setInterval(async () => {
+      const st = await checkStatus(true);
+      if (st === 'open') stopPolling();
+    }, 3000);
+  }
+
+  function stopPolling() {
+    if (pollInterval) {
+      clearInterval(pollInterval);
+      pollInterval = null;
+    }
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    checkStatus(false);
+  });
+</script>
+</body>
+</html>

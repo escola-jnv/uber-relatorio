@@ -31,6 +31,12 @@
     <!-- Botão FAB flutuante no canto superior direito para adicionar lançamento -->
     <button type="button" class="fab-add" id="btnFabAdd" aria-label="Adicionar lançamento" title="Novo Lançamento">＋</button>
 
+    <!-- Topo: Botões Redondos com Timers Contínuos (Pausa, Água, Banheiro, Comida, Descanso) -->
+    <div class="quick-events-bar" id="quickEventsBar"></div>
+
+    <!-- Barra de Progresso do Relatório Parcial (Break-even, Lucro do Dia, Meta de Caixas e Autonomia) -->
+    <div id="parcialReportBox"></div>
+
     <div class="f-box">
       <div class="f-top">
         <span class="f-title">📅 Filtro de Datas</span>
@@ -122,6 +128,9 @@
           <span id="sRpKmSub" class="mut" style="font-size:10px;text-transform:none"></span>
         </div>
       </div>
+
+      <!-- Previsão de Autonomia e Próximo Abastecimento (Sessão Ativa) -->
+      <div id="sAutonomiaInfo" style="margin-top:10px" hidden></div>
     </section>
 
     <!-- Resumo de Ganhos e Metas Diárias -->
@@ -209,6 +218,20 @@
       </div>
       <button class="p" style="width:100%">Salvar metas</button>
     </form>
+
+    <!-- Conexão WhatsApp / Evolution API -->
+    <section class="c" id="sec-evolution-conn">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <b>📱 WhatsApp & Evolution API</b>
+        <a href="/evolution" class="p" style="padding:6px 12px;font-size:12px;text-decoration:none;display:inline-flex;align-items:center;gap:4px">
+          Conectar QR Code ↗
+        </a>
+      </div>
+      <div class="mut" style="font-size:12px;line-height:1.4">
+        Conecte o WhatsApp via QR Code e configure o webhook automático para receber corridas, odômetro e despesas diretamente pelo grupo ou mensagens.
+      </div>
+    </section>
+
     <div class="c mut" id="ajuda"></div>
   </div>
 </main>

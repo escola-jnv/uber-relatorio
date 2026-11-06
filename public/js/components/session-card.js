@@ -4,6 +4,7 @@ import { useStore } from '../state/store.js';
 import { getActiveCar, getDynamicCarCosts } from '../services/car-service.js';
 import { saveEntry } from '../services/entries-service.js';
 import { openStartSessionModal } from './modals/start-session-modal.js';
+import { calcularAutonomiaSessao } from '../services/autonomia-service.js';
 
 export function renderSessionCard() {
   const { rows, cfg, metrics } = useStore();
@@ -104,8 +105,33 @@ export function renderSessionCard() {
     if ($('#sRpKmSub')) {
       $('#sRpKmSub').textContent = kmSess > 0 ? `${N1(kmSess)} km` : (sAtual.n ? `${sAtual.n} corridas` : 'lance o km');
     }
+
+    // 5. Previsão de Autonomia e Próximo Abastecimento
+    const aut = calcularAutonomiaSessao({ sAtual, rows, cfg, metrics });
+    if ($('#sAutonomiaInfo')) {
+      if (aut.ativa) {
+        $('#sAutonomiaInfo').hidden = false;
+        const alertCls = aut.statusAlerta === 'critico' ? 'fuel-critico' : aut.statusAlerta === 'atencao' ? 'fuel-atencao' : 'fuel-normal';
+        $('#sAutonomiaInfo').innerHTML = `
+          <div class="parcial-fuel-card ${alertCls}" style="margin:0">
+            <div class="fuel-card-top">
+              <div class="fuel-title">⛽ <b>Previsão de Abastecimento:</b></div>
+              <div class="fuel-tempo-badge">${aut.tempoFormatado}</div>
+            </div>
+            <div class="fuel-card-details">
+              <span>Restam <b>~${aut.kmRestantes} km</b> de autonomia</span>
+              <span>Média: <b>${aut.mediaKmL} km/l</b></span>
+              ${aut.odoProximoAbastecimento ? `<span>Posto por volta do odômetro: <b>${aut.odoProximoAbastecimento}</b></span>` : ''}
+            </div>
+          </div>
+        `;
+      } else {
+        $('#sAutonomiaInfo').hidden = true;
+      }
+    }
   } else {
     // Sessão parada
+    if ($('#sAutonomiaInfo')) $('#sAutonomiaInfo').hidden = true;
     if ($('#pBtn')) $('#pBtn').hidden = true;
     if ($('#sTxt')) $('#sTxt').textContent = 'Sessão parada';
     if ($('#sInfo')) {

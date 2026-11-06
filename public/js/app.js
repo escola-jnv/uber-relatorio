@@ -14,6 +14,8 @@ import { initDateFilter, setFilterPreset } from './components/date-filter.js';
 import { initTable, renderLista } from './components/table.js';
 import { renderCharts } from './components/charts.js';
 import { renderInsights } from './components/insights.js';
+import { initQuickEvents, renderQuickEvents } from './components/quick-events.js';
+import { renderParcialReport } from './components/parcial-report.js';
 
 // Modais
 import { initAddEntryModal } from './components/modals/add-entry-modal.js';
@@ -32,6 +34,8 @@ export function renderApp() {
   renderSessionCard();
   renderCarBar();
   renderCarList();
+  renderQuickEvents();
+  renderParcialReport();
   renderLista();
   renderCharts();
   renderInsights(summary);
@@ -66,6 +70,7 @@ function init() {
   initEntryForms();
   initDateFilter();
   initTable();
+  initQuickEvents();
 
   // Inicializa modais
   initAddEntryModal();

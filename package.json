@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "node --watch server.js",
     "start": "node server.js",
-    "test": "node test/test-server.js && node test/test-modules.js && node test/test-odo.js && node test/test-pausas.js",
+    "test": "node test/test-server.js && node test/test-modules.js && node test/test-odo.js && node test/test-pausas.js && node test/test-autonomia.js",
     "build:css": "tailwindcss -i src/styles.css -o public/css/app.css --minify",
     "watch:css": "tailwindcss -i src/styles.css -o public/css/app.css --watch",
     "build": "npm run build:css"
@@ -20,5 +20,10 @@
     "@fontsource-variable/space-grotesk": "^5.3.0",
     "@tailwindcss/cli": "^4.3.4",
     "tailwindcss": "^4.3.4"
+  },
+  "dependencies": {
+    "@whiskeysockets/baileys": "^7.0.0-rc14",
+    "pino": "^10.4.0",
+    "qrcode": "^1.5.4"
   }
 }

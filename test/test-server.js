@@ -157,6 +157,24 @@ server.listen(0, async () => {
       assert.equal(json.ok, true);
     });
 
+    await asyncTest('Serve página de login/conexão Evolution (GET /evolution)', async () => {
+      const res = await fetch(`${baseUrl}/evolution`);
+      assert.equal(res.status, 200);
+      assert.match(res.headers.get('content-type') || '', /text\/html/);
+      const html = await res.text();
+      assert.ok(html.includes('Evolution API'), 'Página deve conter menção a Evolution API');
+      assert.ok(html.includes('qrContainer'), 'Página deve conter container de QR Code');
+    });
+
+    await asyncTest('Responde endpoint GET /api/evolution?action=config', async () => {
+      const res = await fetch(`${baseUrl}/api/evolution?action=config`);
+      assert.equal(res.status, 200);
+      const json = await res.json();
+      assert.equal(json.ok, true);
+      assert.ok(json.apiUrl);
+      assert.ok(json.defaultWebhook);
+    });
+
     await asyncTest('Responde OPTIONS /api/uber com CORS habilitado', async () => {
       const res = await fetch(`${baseUrl}/api/uber`, { method: 'OPTIONS' });
       assert.equal(res.status, 204);

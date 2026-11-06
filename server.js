@@ -7,6 +7,7 @@ import configHandler from './api/config.js';
 import entriesHandler from './api/entries.js';
 import uberHandler from './api/uber.js';
 import whatsappHandler from './api/whatsapp.js';
+import evolutionHandler from './api/evolution.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -70,7 +71,8 @@ const staticApiRoutes = {
   '/api/config': configHandler,
   '/api/entries': entriesHandler,
   '/api/uber': uberHandler,
-  '/api/whatsapp': whatsappHandler
+  '/api/whatsapp': whatsappHandler,
+  '/api/evolution': evolutionHandler
 };
 
 export function createServer() {
@@ -146,7 +148,7 @@ export function createServer() {
       }
 
       // 2. Arquivos Estáticos (public/)
-      let relativePath = pathname === '/' ? 'index.html' : pathname.replace(/^\/+/, '');
+      let relativePath = pathname === '/' ? 'index.html' : pathname === '/evolution' ? 'evolution.html' : pathname.replace(/^\/+/, '');
       relativePath = path.normalize(relativePath).replace(/^(\.\.[/\\])+/, '');
       const filePath = path.resolve(PUBLIC_DIR, relativePath);
 
@@ -198,11 +200,13 @@ if (isDirectRun) {
   server.listen(PORT, () => {
     console.log(`\n  \x1b[32m✔ Servidor local Node.js rodando!\x1b[0m\n`);
     console.log(`  > Aplicação:   \x1b[36mhttp://localhost:${PORT}\x1b[0m`);
+    console.log(`  > Evolution:   \x1b[36mhttp://localhost:${PORT}/evolution\x1b[0m (Login QR Code)`);
     console.log(`  > Endpoints de API disponíveis:`);
     console.log(`    - GET/POST/PATCH/DELETE http://localhost:${PORT}/api/entries`);
     console.log(`    - GET/POST              http://localhost:${PORT}/api/config`);
     console.log(`    - POST/OPTIONS          http://localhost:${PORT}/api/uber`);
     console.log(`    - GET/POST              http://localhost:${PORT}/api/whatsapp`);
+    console.log(`    - GET/POST              http://localhost:${PORT}/api/evolution`);
 
     const sbUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
     if (!sbUrl) {

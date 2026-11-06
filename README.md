@@ -48,8 +48,9 @@ Campo rápido da app e WhatsApp usam o mesmo formato (uma linha = um lançamento
 ## WhatsApp (grupo "Uber")
 O WhatsApp oficial (Cloud API) **não lê grupos**. Use um conector não-oficial apontando o webhook para
 `https://SEU-APP.vercel.app/api/whatsapp?token=SEU_TOKEN`:
+- **Evolution API**: Acesse diretamente a página [`/evolution`](http://localhost:3000/evolution) para conectar seu WhatsApp via QR Code e configurar o webhook automaticamente com 1 clique.
 - **Z-API** (pago, mais fácil): webhook "Ao receber" → filtra pelo nome do grupo automaticamente.
-- **Evolution API** / **WAHA** (gratuitos, self-host): evento `messages.upsert` / `message`. Mande uma mensagem no grupo, veja o `chatId` na resposta/log e coloque em `WA_GROUP_ID`.
+- **WAHA** (gratuito, self-host): evento `message`. Mande uma mensagem no grupo, veja o `chatId` na resposta/log e coloque em `WA_GROUP_ID`.
 
 ## Uber (drivers.uber.com)
 A Uber não tem API pública para motorista. O `uber-sync.user.js` roda **no seu navegador logado**:
